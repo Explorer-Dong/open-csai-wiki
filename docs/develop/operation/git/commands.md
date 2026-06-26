@@ -57,6 +57,29 @@ git config --unset http.proxy
 git config --unset https.proxy
 ```
 
+如果走 SSH 协议，先装一个软件：
+
+```bash
+sudo apt updata && sudo apt install netcat-openbsd -y
+```
+
+然后给 ~/.ssh/config 文件加一个配置：
+
+```text hl_lines="6"
+Host github-sub
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/key_ai_api
+    IdentitiesOnly yes
+    ProxyCommand nc -x 127.0.0.1:7897 [<-X 5/connect>] %h %p
+```
+
+如果是 HTTPS 代理，就填 -X connect，如果是 SOCKS v.5 代理，就填 -X 5。
+
+部分代理软件使用的是混合端口，例如 Mihomo 内核的代理软件就任选一个即可，由于 nc 默认 -X 5，所以不填也行。
+
+![Clash Verge Rec 使用 Mihomo 内核，端口是混合的](https://cdn.dwj601.cn/images/20260614124400088.png)
+
 ### 配置中文转义
 
 ```bash
@@ -488,4 +511,21 @@ git stash apply --index
 ```bash
 # 查看栈内元素
 git stash list
+```
+
+### tag 功能
+
+tag 用来给某个 commit 起一个稳定的别名，常用于标记发布版本。常见命名方式为 `v<major>.<minor>.<patch>`，例如 `v1.2.0`。
+
+常用命令：
+
+```bash
+# 查看所有标签
+git tag
+
+# 删除本地标签
+git tag -d <tag_name>
+
+# 删除远程标签
+git push <remote_name> --delete <tag_name>
 ```
