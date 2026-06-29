@@ -74,9 +74,11 @@ git clone git@github.com:Explorer-Dong/open-csai-wiki.git
 - 本地开发。怎么方便怎么来，反正 token 不会泄露（应该？）；
 - 远程开发，特别是服务器不属于你的情况下，不建议用 ssh（因为你得把私钥传到服务器才能用，这你敢？反正我不敢），我更推荐用 personal access token，并且不要持久化 token，每次交互就老老实实输入用户名和 token。
 
-## 给其他人的仓库贡献代码
+## 贡献代码
 
-不是每个人都有权限直接对远程仓库进行推送操作，GitHub 设计了一种名为 Pull Request 的功能，让仓库拥有者自行审核其他人对仓库的改动，从而决定是否要将这些改动 merge 进来。该操作的逻辑如下图所示：
+对于一个特定的 git 仓库，不是每个人都有权限直接修改仓库中的内容，为了高效协作，GitHub 设计了 Pull Request (PR) 功能。仓库贡献者可以修改内容，仓库所有者可以决定是否将这些改动合并进来。
+
+PR 的基本工作逻辑如下图所示：
 
 ![Pull Request 工作逻辑图例](https://cdn.dwj601.cn/images/202406091607490.svg)
 
@@ -87,7 +89,7 @@ git clone git@github.com:Explorer-Dong/open-csai-wiki.git
 3. 开发结束后通过 `add`、`commit` 、`push` 等常规操作保存并提交改动；
 4. 最后在 GitHub 平台向 "openai/openai-cookbook" 发起 `pull request` 等到管理员审核即可。
 
-下面给出演示截图。
+本质上还是 [分支合并](./git/branch.md#分支合并)，只不过源分支（归属原始的仓库）和新分支（归属 fork 的仓库）不属于同一个仓库而已。
 
 ### 第一步：fork 目标仓库
 
@@ -145,6 +147,48 @@ git push origin <target_branch_name> --force
 ![发起 PR 请求](https://cdn.dwj601.cn/images/202406091634960.png)
 
 之后等待项目管理者 review 完你的改动后确定：合并到仓库、和你反馈继续修改、拒绝合并等。
+
+## 审核代码
+
+上一节讲解了如何给别人的项目贡献代码，现在身份交换一下。当别人给自己的项目提交 PR 以后，我们的应对之策。
+
+### 给别人提意见
+
+GitHub 提供了非常便利的评论功能，仓库拥有者可以直接给 PR 的每一个地方添加评论，仓库贡献者可以根据评论继续修改并迭代，直到满足要求。
+
+这需要仓库拥有者有极强的代码审核能力，或者是一些比较明显的问题。
+
+### 直接在网页修改
+
+如果是少量的小问题，仓库拥有者也可以直接在 GitHub 网页端修改并提交内容。但这是很不靠谱的，很多时候需要在自己的本地验证修改。因此更推荐把 PR 的内容拉到本地审核。
+
+### 拉取到本地审核
+
+由于 PR 的本质是贡献者 fork 仓库的某个分支 merge 到主仓库的某个分支，所以我们需要先拉取 PR 分支的内容：
+
+```bash
+git fetch origin pull/<pr_number>/head:pr-<pr_number>
+```
+
+切换到 PR 分支：
+
+```bash
+git switch pr-<pr_number>
+```
+
+接下来进行常规的修改与提交操作：
+
+```bash
+git commit -am 'xxx'
+```
+
+接着将修改推送到 PR 的源分支：
+
+```bash
+git push https://github.com/<pr_owner><pr_repo>.git HEAD:<pr_branch>
+```
+
+最后在对应 PR 的信息列表里就可以看到自己的提交了。后续就是正常的 [分支合并](./git/branch.md#分支合并) 操作，也可以 [删除本地的 PR 分支](./git/commands.md#删除分支)，这里都不再赘述。
 
 ## GitHub Actions
 
