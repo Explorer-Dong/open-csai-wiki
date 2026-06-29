@@ -392,14 +392,14 @@ git remote set-url <remote_name> <new_url>
 
 ## 杂项
 
-### 状态查询
+### 状态查询 `git status`
 
 ```bash
 # 查看当前项目的版本管理状态
 git status
 ```
 
-### 日志查询
+### 日志查询 `git log/reflog`
 
 ```bash
 # 从当前版本开始查询 commit 日志
@@ -409,7 +409,7 @@ git log
 git reflog
 ```
 
-### 差异比对
+### 差异比对 `git diff`
 
 ```bash
 # 查看「工作区」与「暂存区」的差异
@@ -419,7 +419,7 @@ git diff {<file_name> | .}
 git diff --cached {<file_name> | .}
 ```
 
-### 修改 comment
+### 修改提示 `git commit`
 
 如果对 `git commit -m` 后编写的 comment 不满意，可以修改：
 
@@ -430,7 +430,7 @@ git commit --amend
 
 如果希望修改更早提交的 comment，请使用 [合并分支](#合并分支) 中的交互式变基。
 
-### 取消 Git 管理
+### 取消管理 `git rm`
 
 有时我们会误将部分文件加入到 Git 管理，为了减小管理的体积或者取消敏感文件的管理，我们有必要将这些文件取消 Git 管理。一般有以下两种场景：
 
@@ -462,16 +462,20 @@ git filter-branch \
 git push --force
 ```
 
-### 临时保存更改
+### 临时保存 `git stash`
 
 当我们在开发某个分支的过程中，临时想切换到其他分支做些什么时，Git 是不允许此时的工作区有变动的，但我们又不想 commit 工作区的代码，就可以使用 Git 的「临时保存」功能。使用一个类似于栈的数据结构进行维护。
 
 代码入栈：
 
 ```bash
-# 临时保存更改（入栈）
-git stash [push]
+# 基本命令
+git stash [push] [<file1_path>] [<file2_path>]
 # 示例输出：stash@{0}: WIP on exp: 23b0327 fix: typo
+
+# 入栈时添加提示
+git stash [push] -m 'info'
+# 之后使用 git stash list 时就可以查看之前写的提示，默认为上一次 commit 的提示
 
 # 保存时排除已提交到暂存区的代码
 git stash [push] --keep-index
@@ -483,11 +487,20 @@ git stash [push] -u
 git stash [push] -a
 ```
 
+查看栈内信息：
+
+```bash
+git stash list
+```
+
 代码出栈：
 
 ```bash
 # 弹出并使用栈顶代码
 git stash pop
+
+# 弹出并使用栈内指定位置的代码
+git stash pop stash@{<1>}
 
 # 使用栈顶代码
 git stash apply
@@ -506,16 +519,9 @@ git stash drop stash@{<2>}
 git stash apply --index
 ```
 
-其他命令：
+### 标签功能 `git tag`
 
-```bash
-# 查看栈内元素
-git stash list
-```
-
-### tag 功能
-
-tag 用来给某个 commit 起一个稳定的别名，常用于标记发布版本。常见命名方式为 `v<major>.<minor>.<patch>`，例如 `v1.2.0`。
+标签用来给某个 commit 起一个稳定的别名，常用于标记发布版本。常见命名方式为 `v<major>.<minor>.<patch>`，例如 `v1.2.0`。
 
 常用命令：
 
