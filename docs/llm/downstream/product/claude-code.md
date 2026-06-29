@@ -1,7 +1,7 @@
 ---
 title: Claude Code
 status: todo
-icon: claudecode
+icon: claude-code
 ---
 
 本文介绍 [Claude Code (CLI)](https://code.claude.com/docs/en/overview) 的具体使用方法。
