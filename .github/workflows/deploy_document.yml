@@ -1,9 +1,11 @@
 # 工作流的名称
 name: Deploy document
 
-# 工作流的触发事件
+# 工作流的触发事件（避免 push 到 PR 中也触发构建）
 on:
-  push
+  push:
+    branches:
+      - main
 
 # 工作流中的所有工作
 jobs:
