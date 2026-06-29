@@ -5,15 +5,9 @@ icon: material/github
 
 本文介绍 [GitHub](https://github.com) 的常见用法，更详细的内容见官方文档 [GitHub Docs](https://docs.github.com/zh)。
 
-## 基本概念
-
-### Git 与 GitHub
-
-[Git](./git/index.md) 是一款版本管理软件，适用目前绝大多数操作系统；GitHub 是一个代码托管平台，于 2018 年被微软收购，与 Git 没有任何关系。但使用 Git 管理的项目可以基于 GitHub 进行分布式存储，非常适合协作开发。因此往往需要结合二者来达到相对良好的 Teamwork 效果。
-
-### 仓库连接协议
-
-基于 GitHub 等代码托管平台进行分布式开发时，涉及到连接协议的选择问题，主要有 HTTPs 和 SSH 两个选项，具体用那个以及对应的配置方法详见下方的 [身份鉴权](#身份鉴权)。
+> [!tip]
+>
+> [Git](./git/index.md) 是一款版本管理软件，适用目前绝大多数操作系统；GitHub 是一个代码托管平台，于 2018 年被微软收购，与 Git 没有任何关系。但使用 Git 管理的项目可以基于 GitHub 进行分布式存储，非常适合协作开发。因此往往需要结合二者来达到相对良好的 Teamwork 效果。
 
 ## 身份鉴权
 
@@ -24,15 +18,15 @@ icon: material/github
 - 【不推荐】密码鉴权。即通过用户名和账户密码来和平台交互。[GitHub 在 2021 年禁用了该鉴权方式](https://github.blog/changelog/2021-08-12-git-password-authentication-is-shutting-down/) 来确保安全性，其他平台可能还可以使用（例如 CODING）。这种方法在每次交互时都需要输入用户名和密码。
 - 【推荐】token-based 鉴权。这是目前身份鉴权的最佳实践，可以针对场景或开发人员定制不同权限的 token，确保了资源的安全性和操作的可控性。GitHub 目前支持：personal access token、ssh、OAuth、GitHub App installation token 等鉴权方式。针对个人开发者，这里讨论 personal access token 和 ssh 两种 token-based 鉴权方式。
 
-### 方案一：personal access token
+### personal access token
 
-**创建 personal access token**。方式很简单：
+首先创建 personal access token：
 
 1. 进入 [GitHub Settings](https://github.com/settings/apps) 界面后选择 Fine-grained tokens 或 Tokens (classic) 中的一种（Fine-grained tokens 可以针对仓库做更细粒度的权限控制）；
 2. 配置好 token 的权限（Add permissions >> 勾选 Contents >> 设置 Access  为 Read and write）与名称；
 3. 保存生成的 token（只会出现一次）。
 
-**配置 personal access token 的存储行为**。可以通过配置 `credential.helper` 参数来控制存储行为。例如：
+接着配置 personal access token 的存储行为：
 
 ```bash
 git config credential.helper <mode>
@@ -51,13 +45,15 @@ git config credential.helper <mode>
 >
 > token 或密码的存储属于 Git 的行为，准确地说是 [Git 凭证管理器 (Git Credential Manager, GCM)](https://git-scm.com/book/zh/v2/Git-工具-凭证存储) 的行为，与 GitHub 无关。
 
-### 方案二：ssh
+### ssh
 
-使用 ssh 进行鉴权就很简单了。[创建密钥对](../operation/ssh.md#第一步客户端生成密钥对) 后把公钥上传到 [GitHub](https://github.com/settings/keys)，然后本地 [配置 ssh config](../operation/ssh.md#ssh-config) 让对应的私钥指向 `github.com` 即可。
+[创建密钥对](../operation/ssh.md#第一步客户端生成密钥对) 后把公钥上传到 [GitHub SSH keys](https://github.com/settings/keys)，然后本地 [配置 ssh config](../operation/ssh.md#ssh-config) 让对应的私钥指向 `github.com` 即可。
 
-### 与代码托管平台的连接方式
+## 与代码托管平台的连接方式
 
-使用 HTTPs 协议克隆远程仓库，例如：
+基于 GitHub 等代码托管平台进行分布式开发时，通常涉及到连接协议的选择问题，主要有 HTTPS 和 SSH 两个选项。
+
+使用 HTTPS 协议克隆远程仓库，例如：
 
 ```bash
 git clone https://github.com/Explorer-Dong/open-csai-wiki.git
@@ -71,8 +67,8 @@ git clone git@github.com:Explorer-Dong/open-csai-wiki.git
 
 具体用哪一种取决于你的开发场景，主要就以下两种：
 
-- 本地开发。怎么方便怎么来，反正 token 不会泄露（应该？）；
-- 远程开发，特别是服务器不属于你的情况下，不建议用 ssh（因为你得把私钥传到服务器才能用，这你敢？反正我不敢），我更推荐用 personal access token，并且不要持久化 token，每次交互就老老实实输入用户名和 token。
+- 本地开发。怎么方便怎么来，token 大概率不会泄露。
+- 远程开发。不建议用 ssh，因为你得把私钥传到服务器，这很危险。我更推荐用 personal access token，并且不要持久化 token，每次交互就老老实实输入用户名和 token。
 
 ## 贡献代码
 
@@ -91,27 +87,23 @@ PR 的基本工作逻辑如下图所示：
 
 本质上还是 [分支合并](./git/branch.md#分支合并)，只不过源分支（归属原始的仓库）和新分支（归属 fork 的仓库）不属于同一个仓库而已。
 
-### 第一步：fork 目标仓库
+### 1. fork 目标仓库
 
 进入目标仓库，点击右上角的 fork 按钮进行 fork。如下图所示：
 
 ![fork 目标仓库](https://cdn.dwj601.cn/images/202406091618430.png)
 
-### 第二步：克隆 fork 后的仓库
+### 2. 克隆 fork 后的仓库
 
 进入自己的仓库，找到对应的项目并复制克隆链接。如下图所示：
 
 ![clone 仓库至本地](https://cdn.dwj601.cn/images/202406091620622.png)
 
-### 第三步：编辑内容并版本管理
+### 3. 编辑内容并版本管理
 
 我们将需要修改的内容完善后，就按照常规的 Git 用法进行 add、commit 和 push 操作即可。
 
-> [!note]
->
-> 很多仓库要求贡献者在指定分支上进行，比如不允许在 main 分支编写代码，只允许在 develop 分支上进行，读者需根据实际情况进行版本管理。
-
-### 可选步：同步 fork 后的仓库
+### (Optional) 同步 fork 后的仓库
 
 当我们基于 fork 后的仓库的某个分支进行开发时，源仓库的该分支很有可能也更新了。此时我们有两种方法同步 fork 后的仓库（底层是将源仓库新产生的提交 push 到我们的仓库中）：
 
@@ -125,7 +117,7 @@ PR 的基本工作逻辑如下图所示：
 
 [^sync-forked-repo-2]: [How to avoid merge commits when syncing a fork](https://www.everythingdevops.dev/blog/how-to-avoid-merge-commits-when-syncing-a-fork)
 
-```shell
+```bash
 # 添加远程仓库地址
 git add remote upstream https://github.com/<username>/<repo_name>.git
 
@@ -140,7 +132,7 @@ git push origin <target_branch_name> --force
 >
 > 一旦在本地使用变基合并的方法合并源分支的提交后，后续再在 GitHub 网页端使用 Sync fork 也会基于变基合并的模式更新源分支了。
 
-### 第四步：发起 PR 请求
+### 4. 发起 PR 请求
 
 在选择合适的分支后，点击 `Contribute` 按钮即可看到 `Open pull request` 选项，点击即可发起 PR 请求。如下图所示：
 
@@ -152,17 +144,17 @@ git push origin <target_branch_name> --force
 
 上一节讲解了如何给别人的项目贡献代码，现在身份交换一下。当别人给自己的项目提交 PR 以后，我们的应对之策。
 
-### 给别人提意见
+### 方法一：给别人提意见
 
 GitHub 提供了非常便利的评论功能，仓库拥有者可以直接给 PR 的每一个地方添加评论，仓库贡献者可以根据评论继续修改并迭代，直到满足要求。
 
 这需要仓库拥有者有极强的代码审核能力，或者是一些比较明显的问题。
 
-### 直接在网页修改
+### 方法二：直接在网页修改
 
 如果是少量的小问题，仓库拥有者也可以直接在 GitHub 网页端修改并提交内容。但这是很不靠谱的，很多时候需要在自己的本地验证修改。因此更推荐把 PR 的内容拉到本地审核。
 
-### 拉取到本地审核
+### 方法三：拉取到本地审核
 
 由于 PR 的本质是贡献者 fork 仓库的某个分支 merge 到主仓库的某个分支，所以我们需要先拉取 PR 分支的内容：
 
@@ -268,8 +260,108 @@ ${{ <type>.<key> }}
 
 ## GitHub Pages
 
-[GitHub Pages](https://docs.github.com/zh/pages) 是 GitHub 官方提供的静态站点托管平台，可以按「项目、个人或组织」的形式托管，例如：
+[GitHub Pages](https://docs.github.com/zh/pages) 是 GitHub 提供的静态站点托管平台，适合部署文档、博客、项目主页等静态网页。
 
-- 项目可以通过 `https://<username/orgname>.github.io/<project>/` 访问到；
-- 个人可以通过 `https://<username>.github.io/` 访问到；
-- 组织可以通过 `https://<orgname>.github.io/` 访问到。
+常见访问形式如下：
+
+- 项目站点：`https://<username/orgname>.github.io/<project>/`。
+- 个人站点：`https://<username>.github.io/`。
+- 组织站点：`https://<orgname>.github.io/`。
+
+GitHub Pages 主要有两种部署来源。
+
+### 从分支部署
+
+适合仓库某个分支的根目录或 docs 目录已经存放了静态文件的情况。该方式配置简单，但不适合需要安装依赖、运行构建命令后再发布的项目。
+
+具体操作步骤：
+
+1. 进入仓库的 `Settings` >> `Pages`。
+2. 在 `Build and deployment` 中选择 `Deploy from a branch`。
+3. 选择需要发布的分支，例如 `main`。
+4. 选择发布目录，例如 `/ (root)` 或 `/docs`。
+5. 保存后等待 GitHub 完成部署。
+
+部署成功后，GitHub 会在 Pages 设置页面展示站点地址。后续只要对应分支和目录中的文件发生变化，GitHub Pages 就会自动重新部署。
+
+### 通过 [GitHub Actions](#github-actions) 部署
+
+适合 Vite、MkDocs、Zensical 等需要先构建再发布的项目。
+
+首先需要在仓库的 `Settings` >> `Pages` 中把部署来源切换为 `GitHub Actions`。
+
+GitHub Actions 的大致流程：拉取代码 $\to$ 安装依赖 $\to$ 构建网页 $\to$ 上传构建产物 $\to$ 发布到 GitHub Pages。
+
+下面是一个最小化的工作流示例：
+
+```yaml title=".github/workflows/pages.yml"
+name: pages
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 拉取代码
+      - name: Checkout
+        uses: actions/checkout@v4
+      # 安装依赖
+      - name: Install
+        run: npm ci
+      # 构建网页
+      - name: Build
+        run: npm run build
+      # 上传构建产物
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      # 部署到 GitHub Pages
+      - name: Deploy
+        uses: actions/deploy-pages@v4
+```
+
+如果项目使用的是 Python 文档工具，就把 `Build` 步骤替换为对应命令即可。例如本项目使用 uv 管理环境，可以改成：
+
+```yaml
+# 安装依赖
+- name: Build
+  run: uv sync
+# 构建网页
+- name: Build
+  run: uv run zensical build
+# 上传构建产物
+- name: Upload artifact
+  uses: actions/upload-pages-artifact@v3
+  with:
+    path: site
+```
+
+### 自定义域名
+
+GitHub Pages 默认使用 `github.io` 域名。如果希望绑定自己的域名，需要完成两步：
+
+1. 在 `Settings` >> `Pages` 的 `Custom domain` 中填写域名。
+2. 在域名服务商处配置 DNS 解析，让域名指向 GitHub Pages。
+
+如果使用自定义域名，建议勾选 `Enforce HTTPS`。GitHub 会自动为 Pages 站点签发证书，但证书生效可能需要等待一段时间。
+
+### 注意事项
+
+- GitHub Pages 只适合托管静态内容，不能直接运行数据库、后端 API 或常驻进程。
+- 项目站点通常部署在子路径下，例如 `/open-csai-wiki/`，构建工具里的 `base`、`site_url` 等配置需要同步调整。
+- 私有仓库是否支持 Pages 取决于账号和组织的 GitHub 计划。
+- 不要把密钥、token、配置文件等敏感信息放进静态产物中，Pages 发布后的内容对访问者可见。
