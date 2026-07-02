@@ -89,6 +89,60 @@ ROC (Receiver Operating Characteristic, ROC) 曲线即受试者工作特征曲�
 |   **宏**    | $\displaystyle\text{macroP} = \frac{1}{n} \sum_{i=1}^n P_i$  | $\displaystyle \text{macroR} = \frac{1}{n} \sum_{i=1}^n R_i$ | $\displaystyle\text{macroF}_1 = \frac{2 \cdot\text{macroP} \cdot\text{macroR}}{\text{macroP}+\text{macroR}}$ |
 |   **微**    | $\displaystyle\text{microP} = \frac{\overline{TP}}{\overline{TP}+\overline{FP}}$ | $\displaystyle\text{microR} = \frac{\overline{TP}}{\overline{TP}+\overline{FN}}$ | $\displaystyle\text{microF}_1 = \frac{2 \cdot \text{microP} \cdot \text {microR}}{\text{microP}+\text{microR}}$ |
 
+## 概率分布度量
+
+很多分类模型不会只输出类别，而是输出每个类别的概率分布。此时可以把真实标签看成目标分布 $P$，模型输出看成预测分布 $Q$，再度量两个分布的差异。
+
+### 信息熵
+
+信息熵 (Entropy) 用于度量目标分布 $P$ 自身的不确定性。对于离散分布，定义如下：
+
+$$
+H(P) = -\sum_i P(i)\log P(i)
+$$
+
+分布越均匀，采样结果的不确定性越高，信息熵越大；分布越集中，采样结果的不确定性越低，信息熵越小。可以把信息熵理解为：如果真实分布是 $P$，平均需要多少信息量才能描述一次采样结果。
+
+### 交叉熵
+
+交叉熵 (Cross Entropy, CE) 用于度量使用预测分布 $Q$ 去编码目标分布 $P$ 时所需要的平均信息量。对于离散分布，定义如下：
+
+$$
+H(P,Q) = -\sum_i P(i)\log Q(i)
+$$
+
+在分类任务中，如果真实标签采用 one-hot 编码，目标类别为 $y$，模型预测该类别的概率为 $q_y$，则多分类交叉熵可以简化为：
+
+$$
+H(P,Q) = -\log q_y
+$$
+
+因此，当模型给真实类别分配的概率越高时，交叉熵越小；反之交叉熵越大。
+
+### KL 散度
+
+KL 散度 (Kullback-Leibler Divergence, KLD) 用于度量预测分布 $Q$ 相对于目标分布 $P$ 的信息损失。对于离散分布，定义如下：
+
+$$
+D_{KL}(P\|Q) = \sum_i P(i)\log\frac{P(i)}{Q(i)}
+$$
+
+KL 散度的取值范围为 $[0,+\infty]$，越小表示两个分布越接近。当且仅当 $P=Q$ 时，KL 散度为 $0$。
+
+> [!tip]
+>
+> KL 散度不满足对称性，一般有 $D_{KL}(P\|Q) \ne D_{KL}(Q\|P)$，因此它不是严格意义上的距离。
+
+### 小结
+
+不难发现，信息熵 $H(P)$、交叉熵 $H(P,Q)$ 和 KL 散度之间满足如下关系：
+
+$$
+H(P,Q) = H(P) + D_{KL}(P\|Q)
+$$
+
+在训练过程中，训练数据给出的目标分布 $P$ 是固定的，模型参数只会影响预测分布 $Q$，不会影响 $P$。因此 $H(P)$ 不包含模型预测项，不会随着模型训练发生变化，是优化过程中的常数。所以最小化交叉熵 $H(P,Q)$ 等价于最小化 KL 散度 $D_{KL}(P\|Q)$，也就是让模型预测分布 $Q$ 尽可能接近真实分布 $P$，这也是分类模型常用交叉熵作为损失函数的原因。
+
 ## 模型误差
 
 在模型训练的过程中，我们会不断地对其性能进行评价，模型的输出与理想输出之间的差距就被称为误差。
