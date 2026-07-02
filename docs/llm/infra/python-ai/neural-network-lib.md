@@ -6,7 +6,7 @@ icon: simple/pytorch
 
 本文记录并行计算与神经网络库 [PyTorch](https://github.com/pytorch/pytorch) 的基本用法。
 
-## 安装 PyTorch
+## PyTorch 安装
 
 默认大家对 [CPU 体系](../../../base/cs/operating-system/index.md) 有一定的了解，那么从 CPU 过渡到 GPU 就有迹可循了：
 
@@ -22,9 +22,9 @@ icon: simple/pytorch
 
 ### 快速上手
 
-首先安装 NVIDIA Driver 和 CUDA Toolkit：默认会预装好，否则可以查看官网解决，[NVIDIA Driver Installation Guide](https://docs.nvidia.com/datacenter/tesla/driver-installation-guide/index.html)、[CUDA Installation Guide](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/contents.html)。
+首先安装 [NVIDIA Driver](https://docs.nvidia.com/datacenter/tesla/driver-installation-guide/index.html) 和 [CUDA Toolkit](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/contents.html)。
 
-接着安装算子库和 PyTorch 包（torch 包会自动安装算子库，所以只需要安装 torch 包即可）。以 `torch==2.8.0` 版本为例，其余版本请前往 [PyTorch 官网](https://pytorch.org/get-started/previous-versions/) 查看：
+接着安装高性能算子库和 torch 包。torch 包会自动安装算子库，所以只需要安装 torch 包即可。以 `torch==2.8.0` 版本为例，其余版本请前往 [PyTorch 官网](https://pytorch.org/get-started/previous-versions/) 查看：
 
 === "Linux/Windows"
 
