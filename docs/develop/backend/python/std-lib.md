@@ -96,6 +96,38 @@ python main.py --help
 
 输出帮助信息时自带格式，非常实用。
 
+## copy
+
+因为 Python 的赋值只是 [引用](./index.md#变量模型)，所以如果要真正「复制」，需要用 `copy` 模块。该模块有两种拷贝模式：
+
+- 浅拷贝 `copy.copy()`：只复制第一层，嵌套的可变元素依然是引用。
+- 深拷贝 `copy.deepcopy()`：递归复制，得到一份全新的数据。
+
+示例程序：
+
+```python
+import copy
+
+# 创建一个嵌套列表
+origin = [1, 2, [3, 4]]
+
+# 浅拷贝
+sliced = original_list[:]  # 列表的特有写法：切片
+shallow_copied = copy.copy(origin)
+
+# 深拷贝
+deep_copied = copy.deepcopy(origin)
+
+# 修改嵌套列表中的元素
+origin[0] = "haha"
+origin[2][0] = 'changed'
+
+print("Original list:\t", origin)           # ['haha', 2, ['changed', 4]]
+print("Sliced list:\t", sliced)             # [1, 2, ['changed', 4]]
+print("Shallow copied:\t", shallow_copied)  # [1, 2, ['changed', 4]]
+print("Deep copied:\t", deep_copied)        # [1, 2, [3, 4]]
+```
+
 ## datetime
 
 `datetime` 库提供了日期和时间的处理功能。

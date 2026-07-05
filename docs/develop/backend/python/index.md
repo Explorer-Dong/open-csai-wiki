@@ -5,7 +5,7 @@ icon: material/language-python
 
 本文记录 [Python](https://www.python.org/) 的基本概念。
 
-## Python 机制
+## 机制
 
 Python 的运行机制主要包括源码执行、对象模型、导入机制、内存管理和并发约束等内容。
 
@@ -21,15 +21,44 @@ Python 是一门解释型语言。以 CPython 为例，解释器会先把 `.py` 
 | PyPy    | RPython | 逐条解释，但会在运行时将热点字节码即时 (Just In Time, JIT) 编译为机器码，直接在 CPU 上执行 | 执行速度快，适合长时间运行的计算任务；但兼容性稍差 | 高性能计算、高并发等                 |
 | Jython  | Java     | 将 Python 源码直接编译成 Java 字节码，然后由 JVM（Java 虚拟机）执行 | 能与 Java 无缝集成；但性能依赖 JVM 优化，启动速度稍慢 | 需要在 Java 环境中使用 Python 脚本 |
 
-### 对象模型
+### 变量模型
 
-Python 中几乎所有数据都是对象，对象一般包含三类信息：
+在 C++ 和 Python 中，赋值语句的语义是完全不同的。C++ 变量像「盒子」，赋值就是再拿一个盒子装一份拷贝的数据；而 Python 变量像「标签」，赋值就是多贴几个标签在同一个盒子上。下图生动的展示了 Python 变量的意义：
 
-- 身份：对象的唯一标识，可通过 `id()` 查看。
-- 类型：对象所属的数据类型，可通过 `type()` 查看。
-- 值：对象保存的实际数据。
+![C++ 盒子模型 vs Python 标签模型](https://cdn.dwj601.cn/images/202407031133477.png)
 
-这也是 Python 赋值、可变对象和不可变对象行为的基础。
+**C++：赋值会产生拷贝**。给变量赋值时，会重新申请内存空间，把数据复制过去。
+
+例如下面的程序。输出的内存地址不同，说明 `a` 和 `b` 是两份独立的数据。：
+
+```cpp
+#include <iostream>
+#include <vector>
+
+int main() {
+    std::vector<int> a = {1, 2, 3};
+    std::vector<int> b = a;
+
+    std::cout << &a << std::endl;  // 0x8b5a3ffa40
+    std::cout << &b << std::endl;  // 0x8b5a3ffa20
+    return 0;
+}
+```
+
+**Python：赋值仅仅是增加引用**。所有变量其实都是「标签」，指向同一块数据。
+
+例如下面的程序。三个变量的内存地址完全一样，说明它们指向同一份数据：
+
+```python
+a = [1, 2, 3]
+b = a
+c = a
+print(id(a))  # 1542586187072
+print(id(b))  # 1542586187072
+print(id(c))  # 1542586187072
+```
+
+Python 如果确实需要拷贝变量，需要使用 [copy](./std-lib.md#copy) 标准库。
 
 ### 内存管理
 
@@ -39,7 +68,7 @@ CPython 主要通过引用计数回收对象：当对象的引用计数归零时
 
 CPython 有全局解释器锁 (Global Interpreter Lock, GIL)，同一解释器进程内通常只有一个线程能执行 Python 字节码。它简化了 CPython 的内存管理，但也限制了多线程在 CPU 密集任务上的并行能力。I/O 密集任务可以使用多线程或异步编程；CPU 密集任务通常更适合多进程、原生扩展或其他解释器实现。
 
-## Python 工具
+## 工具
 
 工欲善其事，必先利其器。好的工具可以让 Python 开发事半功倍。
 
@@ -248,7 +277,7 @@ CPython 有全局解释器锁 (Global Interpreter Lock, GIL)，同一解释器�
     # 在环境变量中设置 UV_CACHE_DIR
     ```
 
-## Python 管理
+## 管理
 
 ### 解释器管理
 
@@ -570,7 +599,7 @@ CPython 有全局解释器锁 (Global Interpreter Lock, GIL)，同一解释器�
 
 代码注释：VSCode 插件推荐 autoDocstring，PyCharm 有自动 docstring 模板。
 
-## Python 规范
+## 规范
 
 Python 增强提案 (Python Enhancement Proposal, PEP) 是 Python 社区用来规范 Python 语言的。下面罗列一些比较常用的规则。
 
