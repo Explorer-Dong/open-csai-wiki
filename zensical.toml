@@ -187,6 +187,7 @@ nav = [
       ] },
       { Python = [
         "develop/backend/python/index.md",
+        "develop/backend/python/engineering.md",
         "develop/backend/python/grammar.md",
         "develop/backend/python/std-lib.md",
         "develop/backend/python/async-lib.md",

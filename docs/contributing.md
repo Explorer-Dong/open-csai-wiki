@@ -36,7 +36,7 @@ title: 参与贡献
 
 ## 方法三：本地部署
 
-该方法适合本地预览你的修改。请确保本地已经安装好 [Git](./develop/operation/git/index.md#安装-git) 和 [Python](./develop/backend/python/index.md#解释器管理)，具体操作如下：
+该方法适合本地预览你的修改。请确保本地已经安装好 [Git](./develop/operation/git/index.md#安装-git) 和 [Python](./develop/backend/python/engineering.md#解释器管理)，具体操作如下：
 
 1）进入项目的 [GitHub](https://github.com/Explorer-Dong/open-csai-wiki) 地址，点击右上角的 `Fork` 按钮并确认：
 
@@ -51,7 +51,7 @@ cd wiki
 
 3）配置 Python 环境：
 
-项目使用 uv 进行管理，请先 [安装 uv](./develop/backend/python/index.md#工具安装)。接下来同步环境即可：
+项目使用 uv 进行管理，请先 [安装 uv](./develop/backend/python/engineering.md#工具安装)。接下来同步环境即可：
 
 === "Windows"
 
