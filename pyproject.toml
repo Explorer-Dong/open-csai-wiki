@@ -5,5 +5,5 @@ description = "A collection of structured notes covering Fundamentals, Data Stru
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "zensical>=0.0.46",
+    "zensical>=0.0.47",
 ]
