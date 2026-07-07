@@ -175,6 +175,7 @@ nav = [
       "develop/frontend/css.md",
       { JavaScript = [
         "develop/frontend/javascript/index.md",
+        "develop/frontend/javascript/engineering.md",
         "develop/frontend/javascript/grammar.md",
       ] },
     ] },

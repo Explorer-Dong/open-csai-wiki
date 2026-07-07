@@ -3,136 +3,133 @@ title: JavaScript 导读
 icon: simple/javascript
 ---
 
-本文介绍 [JavaScript](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript) 的基本概念。
+本文记录 [JavaScript](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript) 的基本概念。
 
-JavaScript 是一种具有函数优先特性的轻量级、解释型或者说即时编译型的编程语言。虽然作为 Web 页面中的脚本语言被人所熟知，但是它也被用到了很多非浏览器环境中，例如 Node.js、Apache CouchDB、Adobe Acrobat 等。进一步说，JavaScript 是一种基于原型、多范式、单线程的动态语言，并且支持面向对象、命令式和声明式（如函数式编程）风格。
+JavaScript 是一种基于原型、多范式、动态类型的编程语言。它最早用于浏览器页面交互，现在也可以通过 [Node.js](https://nodejs.org/zh-cn) 运行在服务端、命令行工具、桌面应用和构建工具中。
 
-## 解释器
+## 快速开始
 
-无论说 JavaScript 是解释型还是编译型语言，总要从高级语言转换为低级语言从而运行在 CPU 上。这里介绍一款常见的转换软件：Node。
+如果是第一次学习 JavaScript，可以按照下面的顺序阅读：
 
-你可以选择直接去 [Node 官网](https://nodejs.org/zh-cn) 进行下载与安装，但我建议你使用 [nvm](#管理解释器) 来管理 Node。因为直接下载 Node 并安装的话，权限会不够，等到全局运行 Node 时会出现权限错误 [^install-node-directly]。
+1. 先阅读 [工程实践](./engineering.md)，完成 Node.js、npm、项目结构和依赖管理配置。
+2. 再阅读 [语法基础](./grammar.md)，学习数据类型、流程控制、函数、对象、类、异常、迭代器和异步语法。
+3. 然后根据开发方向学习浏览器提供的 DOM、事件、网络请求等 Web API，或者 Node.js 提供的文件系统、进程和网络能力。
+4. 最后结合前端框架、构建工具、测试工具和发布流程，把 JavaScript 用到实际工程中。
 
-[^install-node-directly]: To publish and install packages to and from the public npm registry, you must install Node.js and the npm command line interface using either a Node version manager or a Node installer. **We strongly recommend using a Node version manager to install Node.js and npm.** We do not recommend using a Node installer, since the Node installation process installs npm in a directory with local permissions and can cause permissions errors when you run npm packages globally. [CLI >> Configuring >> Install | npm Docs - (docs.npmjs.com)](https://docs.npmjs.com/cli/v11/configuring-npm/install#description)
+## 机制
 
-## 包
+JavaScript 的运行机制主要包括源码执行、对象模型、作用域、事件循环、模块加载和宿主环境等内容。
 
-与其他语言类似，JavaScrip 也有自己的社区与包（库）的共享平台。
+### 引擎执行
 
-## 环境管理
+JavaScript 源码需要交给 JavaScript 引擎执行。浏览器和 Node.js 都内置了引擎，其中 Chrome 和 Node.js 使用的是 [V8](https://v8.dev/)。
 
-### 管理虚拟环境
+现代 JavaScript 引擎通常不会只做简单的逐行解释。以 V8 为例，源码会先被解析为抽象语法树，然后生成字节码执行；运行过程中，热点代码可能会被即时 (Just In Time, JIT) 编译为机器码以提升性能。
 
-Node 的策略就是在项目根目录下生成一个 `node_modules` 文件夹来存储所有的 JS 包。
+不同宿主环境可能会选择不同 JavaScript 引擎，因此同一段 JavaScript 代码虽然遵循同一套语言标准，但底层的解析、编译、优化和运行机制可能由不同引擎实现。常见 JavaScript 引擎及其宿主环境如下：
 
-### 管理解释器
+| 引擎 | 常见宿主环境 | 特点 |
+| --- | --- | --- |
+| V8 | Chrome、Node.js、Deno | 生态覆盖最广，服务端和浏览器都大量使用 |
+| SpiderMonkey | Firefox | JavaScript 的早期实现之一 |
+| JavaScriptCore | Safari、Bun | WebKit 体系中的 JavaScript 引擎 |
 
-借助 Node 版本管理工具 (node version manager, nvm)，可以很方便的在一台机器上管理各种不同的 Node 版本，从而应对不同的开发需求。Windows 平台有专门的 [nvm-windows](https://github.com/coreybutler/nvm-windows)，下载安装后即可作为 CLI 进行使用（不要忘了给 Node 和 nvm 添加环境变量）。
+### 运行环境
 
-查看当前可以下载的 Node 版本：
+JavaScript 语言本身只定义语法、类型、对象、模块、异步语义等核心能力。真正运行程序时，还需要宿主环境提供额外 API。
 
-```bash
-nvm list available
+**浏览器环境**。浏览器中的 JavaScript 主要负责页面交互。除了语言本身，浏览器还提供 DOM、事件、`fetch`、`localStorage` 等 Web API。例如：
+
+```js
+document.querySelector("button").addEventListener("click", () => {
+    console.log("clicked");
+});
 ```
 
-下载对应版本的 Node：
+**Node.js 环境**。Node.js 让 JavaScript 可以脱离浏览器运行。它提供文件系统、进程、网络等服务端能力，常用于后端服务、命令行工具和前端工程化。例如：
 
-```bash
-nvm install <version>
+```js
+import { readFile } from "node:fs/promises";
+
+const content = await readFile("package.json", "utf-8");
+console.log(content);
 ```
 
-卸载对应版本的 Node：
+浏览器和 Node.js 都能运行 JavaScript，但可用 API 不完全相同，写代码时需要先确认目标运行环境。
 
-```bash
-nvm uninstall <version>
+### 变量模型
+
+对于基础类型，JavaScript 的变量直接保存对应的值；对于对象类型，JavaScript 的变量保存的是对象引用。
+
+基础类型的赋值不会让两个变量共享可变状态：
+
+```js
+let a = 1;
+let b = a;
+
+b += 1;
+
+console.log(a);  // 1
+console.log(b);  // 2
 ```
 
-查看当前已经下载的 Node 版本：
+对象类型的赋值会复制引用，因此多个变量可能指向同一个对象：
 
-```bash
-nvm list
+```js
+const a = [1, 2, 3];
+const b = a;
+
+b.push(4);
+
+console.log(a);  // [1, 2, 3, 4]
+console.log(b);  // [1, 2, 3, 4]
 ```
 
-使用对应版本的 Node：
+如果需要复制对象或数组，应该明确使用展开语法、`structuredClone()` 或对应库函数。
 
-```bash
-nvm use <version>
+### 事件循环
+
+JavaScript 的主线程一次只能执行一段同步代码。异步任务不会直接打断当前代码，而是由宿主环境在合适的时机把回调或后续任务放入队列，再由事件循环调度执行。
+
+常见的异步来源包括定时器、用户事件、网络请求、文件 I/O 和 Promise。Promise 的后续逻辑通常会比普通定时器更早进入下一轮可执行阶段。例如：
+
+```js
+console.log("start");
+
+setTimeout(() => {
+    console.log("timer");
+}, 0);
+
+Promise.resolve().then(() => {
+    console.log("promise");
+});
+
+console.log("end");
+
+// start
+// end
+// promise
+// timer
 ```
 
-### 管理包
+理解事件循环可以帮助判断异步代码的执行顺序，避免把耗时计算放在主线程上阻塞页面交互或服务响应。
 
-Node 包管理工具 (node package manager, npm) 一般会随着 Node 一起安装。也可以去 [官网](https://github.com/npm/cli) 手动安装。常用命令如下（加上 `-g` 参数就表示全局，否则仅针对当前项目）：
+### 浏览器加载
 
-列出所有第三方包：
+浏览器解析 HTML 时，如果遇到普通 `<script>`，通常会暂停 HTML 解析，等待脚本下载和执行完成。因此，把脚本放在 `<body>` 末尾曾经是一种常见做法，可以避免脚本阻塞页面主体内容。
 
-```bash
-npm list
+现代页面更常使用 `defer`、`async` 或 `type="module"` 控制脚本加载：
+
+```html
+<script defer src="./main.js"></script>
+<script async src="./analytics.js"></script>
+<script type="module" src="./app.js"></script>
 ```
 
-下载指定包：
+三者区别如下：
 
-```bash
-npm install <package>
-```
+- `defer`：脚本下载不阻塞 HTML 解析，等文档解析完成后按顺序执行。
+- `async`：脚本下载不阻塞 HTML 解析，下载完成后尽快执行，不保证执行顺序。
+- `type="module"`：按 ES Module 加载，默认具有类似 `defer` 的行为，并支持 `import` 和 `export`。
 
-卸载指定包：
-
-```bash
-npm uninstall <package>
-```
-
-显示所有配置：
-
-```bash
-npm config ls --json
-```
-
-自定义配置：
-
-> [!note]
->
-> 所有自定义的配置都会持久化在 `~/.npmrc` 文本文件中，形式是键值对。
-
-```bash
-# 删除缓存
-npm cache clean --force
-
-# 自定义缓存存储目录
-npm config set cache <path/to/target/cache/folder>
-```
-
-### npx
-
-该工具同样随着 Node 一起安装，其主要作用是简化项目中命令行工具的使用。当我们使用虚拟环境中的命令行工具时，需要使用类似 `./node_modules/.bin/webpack` 的方式来运行当前项目中的 webpack 工具，比较麻烦，但如果使用 npx，该工具会自动从当前根目录中的 node_modules 中寻找对应的脚本运行，对应的命令为 `npx webpack`。
-
-### nrm
-
-Node 注册管理工具 (node register manager, nrm) 可以很方便地切换库的下载源。默认为国外的下载源，如果遇到网络问题可以切换到国内的镜像源。[nrm](https://github.com/Pana/nrm) 官网有详细说明，常用命令如下：
-
-下载 nrm：
-
-```python
-npm install nrm -g
-```
-
-查看当前使用的下载源：
-
-```bash
-nrm ls
-```
-
-切换到国内的下载源：
-
-```bash
-nrm use <source>
-```
-
-## 浏览器加载原理
-
-人们常常将 JavaScript 脚本的引用放在 `<body>` 的最后而不是与 CSS 一样放在 `<head>`。想要理解这个，就需要理解 JS 的功能以及浏览器加载网页的原理：
-
-- JS 一般用来处理交互逻辑，也就是说在用户不进行操作的情况下，即使当时没有加载好 JS 文件，也不影响视觉效果；
-- 浏览器加载网页（即解析 HTML 文件）时是逐行进行的。
-
-因此为了不影响用户的视觉体验，一般都是优先加载视觉文件（即 HTML 网页），再加载交互文件（即 JS 脚本）。
-
+因此，现代项目不必一律把脚本放到 `<body>` 末尾。业务脚本通常使用 `defer` 或 `type="module"`，统计脚本等相对独立的脚本才更适合使用 `async`。
