@@ -14,6 +14,12 @@ icon: codex
 npm install -g @openai/codex@0.142.5
 ```
 
+如果 IP 没问题，也可以直接运行官方下载脚本：
+
+```bash
+curl -fsSL https://chatgpt.com/codex/install.sh | sh
+```
+
 ## 配置
 
 > [!note]

@@ -8,15 +8,36 @@ icon: claude-code
 
 ## 安装
 
-推荐使用 npm 安装，便于灵活调整版本，同时也能避免被阻止下载：
+推荐使用 [npm](../../../develop/frontend/javascript/engineering.md#工具安装) 安装，便于灵活调整版本，同时也能避免被阻止下载：
 
 ```bash
-npm install -g @anthropic-ai/claude-code
+npm install -g @anthropic-ai/claude-code@2.1.185
+```
+
+当然如果你的 IP 不在受限区域，可以直接运行官方下载脚本：
+
+```bash
+curl -fsSL https://claude.ai/install.sh | bash
 ```
 
 ## 配置
 
-编辑 `~/.claude/settings.json`：
+### 跳过初始登录
+
+编辑 `~/.claude.json` 文件，新增以下字段来跳过初始登录：
+
+```json
+{
+    "hasCompletedOnboarding": true
+}
+```
+
+### 配置个人端点
+
+配置级别分两种：
+
+- 用户级配置，例如整个机器都属于你，直接编辑 `~/.claude/settings.json` 即可。
+- 项目级配置，例如很多人共享一台服务器，我更推荐使用项目级配置，即直接在项目根目录编辑 `.claude/settings.json`。
 
 ```json
 {
