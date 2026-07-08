@@ -69,9 +69,9 @@ title: 首页
     如果网站内容有幸帮助到了您，欢迎前往 [GitHub](https://github.com/Explorer-Dong/open-csai-wiki) 为我们的项目点一颗宝贵的⭐。下图是本项目的星标历史：
 
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Explorer-Dong/open-csai-wiki&type=date&theme=dark&legend=bottom-right" />
-      <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=Explorer-Dong/open-csai-wiki&type=date&legend=bottom-right" />
-      <img alt="星标历史" src="https://api.star-history.com/svg?repos=Explorer-Dong/open-csai-wiki&type=date&legend=bottom-right" />
+      <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Explorer-Dong/open-csai-wiki&type=date&theme=dark&legend=bottom-right&legend=top-left&sealed_token=CkJBmXC12sR7a9GOzYwJLTOgFnGUtrsGpk7EiC3MiyP1Dz4kW1vowN-Mlo6nIe-9mviok-X0bjXSjJxpvoq_DtpzTL3UxfvRgQeD5f5GEahJ0hnGI_5QVoETrMiJd_S8gGVIwLfsUevk-y1-GCyULu_cUgaF03MVCA-IQ1bh7O7ynJT3bPxyVVN2F4Ta" />
+      <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=Explorer-Dong/open-csai-wiki&type=date&legend=bottom-right&legend=top-left&sealed_token=CkJBmXC12sR7a9GOzYwJLTOgFnGUtrsGpk7EiC3MiyP1Dz4kW1vowN-Mlo6nIe-9mviok-X0bjXSjJxpvoq_DtpzTL3UxfvRgQeD5f5GEahJ0hnGI_5QVoETrMiJd_S8gGVIwLfsUevk-y1-GCyULu_cUgaF03MVCA-IQ1bh7O7ynJT3bPxyVVN2F4Ta" />
+      <img alt="星标历史" src="https://api.star-history.com/svg?repos=Explorer-Dong/open-csai-wiki&type=date&legend=bottom-right&legend=top-left&sealed_token=CkJBmXC12sR7a9GOzYwJLTOgFnGUtrsGpk7EiC3MiyP1Dz4kW1vowN-Mlo6nIe-9mviok-X0bjXSjJxpvoq_DtpzTL3UxfvRgQeD5f5GEahJ0hnGI_5QVoETrMiJd_S8gGVIwLfsUevk-y1-GCyULu_cUgaF03MVCA-IQ1bh7O7ynJT3bPxyVVN2F4Ta" />
     </picture>
 
 </div>
