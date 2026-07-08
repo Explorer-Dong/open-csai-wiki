@@ -250,17 +250,17 @@ nav = [
     "llm/index.md",
     { "基础设施" = [
       "llm/infra/index.md",
-      "llm/infra/accelerator.md",
-      "llm/infra/huggingface.md",
       { "Python AI" = [
         "llm/infra/python-ai/index.md",
         "llm/infra/python-ai/compute-lib.md",
         "llm/infra/python-ai/data-analyze-lib.md",
         "llm/infra/python-ai/visual-lib.md",
         "llm/infra/python-ai/progress-bar-lib.md",
-        "llm/infra/python-ai/neural-network-lib.md",
       ] },
-      "llm/infra/serving-framework.md",
+      "llm/infra/accelerator.md",
+      "llm/infra/huggingface.md",
+      "llm/infra/pytorch.md",
+      "llm/infra/vllm.md",
     ] },
     { "模型原理" = [
       "llm/model/index.md",

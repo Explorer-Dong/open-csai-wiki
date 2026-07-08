@@ -1,5 +1,5 @@
 ---
-title: 神经网络库
+title: PyTorch
 status: todo
 icon: simple/pytorch
 ---
