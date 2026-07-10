@@ -16,6 +16,8 @@ npm install -g opencode-ai
 
 ## 配置
 
+根据官方文档中的 [配置方法](https://opencode.ai/docs/zh-cn/config/)，我们只需要编辑文件 `~/.config/opencode/opencode.jsonc` 并按需填写以下内容：
+
 ```json
 {
   "$schema": "https://opencode.ai/config.json",
