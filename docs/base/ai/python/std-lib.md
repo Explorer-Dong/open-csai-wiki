@@ -246,7 +246,7 @@ print(Status.CREATED.value, type(Status.CREATED.value))  # created <class 'str'>
 
 - 不用每次手动硬编码；
 - 相较于直接定义宏，枚举体可以将宏集中在一起，便于管理；
-- 可以被一些 [数据校验器](./network-lib.md#pydantic) 捕获并验证；
+- 可以被一些 [数据校验器](../../../develop/backend/python/network-lib.md#pydantic) 捕获并验证；
 - 更好地利用 IDE 的智能补全。
 
 ### 与 argparse 联动
@@ -436,7 +436,7 @@ print(result)  # [4, 1, 2]
 
 ## json
 
-`json` 库用于处理 [JSON](../../others/data-serialization-format.md) 格式数据。
+`json` 库用于处理 [JSON](../../../develop/others/data-serialization-format.md) 格式数据。
 
 ### 写入 JSON 文件
 

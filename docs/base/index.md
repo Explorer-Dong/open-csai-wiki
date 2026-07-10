@@ -15,6 +15,7 @@ title: 本专栏包括的主要内容（可点击跳转）
 
 flowchart LR
     %% 实体定义（人工智能）
+    python(Python 编程)
     数字图像处理(数字图像处理)
     机器学习(机器学习)
     数据挖掘(数据挖掘)
@@ -30,7 +31,7 @@ flowchart LR
     数字图像处理 --> 计算机视觉
 
     %% 实体定义（计算机）
-    面向对象程序设计(面向对象程序设计)
+    cpp(C++ 编程)
     数据结构与算法(数据结构与算法)
     数字逻辑电路(数字逻辑电路)
     计算机系统基础(计算机系统基础)
@@ -40,7 +41,7 @@ flowchart LR
     计算机网络(计算机网络)
 
     %% 关系定义
-    面向对象程序设计 --> 数据结构与算法 --> 计算机系统基础
+    cpp --> 数据结构与算法 --> 计算机系统基础
     数字逻辑电路 --> 计算机系统基础 --> 数据库 & 操作系统 & 计算机组成 & 计算机网络
 
     %% 实体定义（数学）
@@ -50,9 +51,10 @@ flowchart LR
     优化方法(优化方法)
 
     %% 关系定义
-    高等数学 & 线性代数 & 概率统计 --> 优化方法 --> 机器学习 & 深度学习 & 强化学习
+    高等数学 & 线性代数 & 概率统计 --> 优化方法 --> python --> 机器学习 & 深度学习 & 强化学习
 
     %% 跳转链接
+    click python "./ai/python/"
     click 数字图像处理 "./ai/digital-image-processing/"
     click 机器学习 "./ai/machine-learning/"
     click 数据挖掘 "./ai/data-mining/"
@@ -62,7 +64,7 @@ flowchart LR
     click 自然语言处理 "./ai/natural-language-processing/"
     click 计算机视觉 "./ai/computer-vision/"
 
-    click 面向对象程序设计 "./cs/object-oriented-programming/"
+    click cpp "./cs/cplusplus/"
     click 数字逻辑电路 "./cs/digital-logic-circuit/"
     click 计算机系统基础 "./cs/computer-system-base/"
     click 数据库 "./cs/database/"

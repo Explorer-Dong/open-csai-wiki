@@ -20,6 +20,17 @@ nav = [
   { "基础知识" = [
     "base/index.md",
     { "人工智能基础" = [
+      { "Python 编程" = [
+        "base/ai/python/index.md",
+        "base/ai/python/engineering.md",
+        "base/ai/python/grammar.md",
+        "base/ai/python/std-lib.md",
+        "base/ai/python/async-lib.md",
+        "base/ai/python/compute-lib.md",
+        "base/ai/python/data-analyze-lib.md",
+        "base/ai/python/visual-lib.md",
+        "base/ai/python/progress-bar-lib.md",
+      ]},
       { "数字图像处理" = [
         "base/ai/digital-image-processing/index.md",
       ] },
@@ -69,9 +80,12 @@ nav = [
       ] },
     ] },
     { "计算机基础" = [
-      { "面向对象程序设计" = [
-        "base/cs/object-oriented-programming/index.md",
-      ] },
+      { "C++ 编程" = [
+        "base/cs/cplusplus/index.md",
+        "base/cs/cplusplus/grammar.md",
+        "base/cs/cplusplus/object-oriented-programming.md",
+        "base/cs/cplusplus/std-lib.md",
+      ]},
       { "数字逻辑电路" = [
         "base/cs/digital-logic-circuit/index.md",
       ] },
@@ -183,15 +197,9 @@ nav = [
       "develop/backend/index.md",
       { "C++" = [
         "develop/backend/cpp/index.md",
-        "develop/backend/cpp/grammar.md",
-        "develop/backend/cpp/std-lib.md",
       ] },
       { Python = [
         "develop/backend/python/index.md",
-        "develop/backend/python/engineering.md",
-        "develop/backend/python/grammar.md",
-        "develop/backend/python/std-lib.md",
-        "develop/backend/python/async-lib.md",
         "develop/backend/python/network-lib.md",
         "develop/backend/python/dbms-lib.md",
       ] },
@@ -250,13 +258,6 @@ nav = [
     "llm/index.md",
     { "基础设施" = [
       "llm/infra/index.md",
-      { "Python AI" = [
-        "llm/infra/python-ai/index.md",
-        "llm/infra/python-ai/compute-lib.md",
-        "llm/infra/python-ai/data-analyze-lib.md",
-        "llm/infra/python-ai/visual-lib.md",
-        "llm/infra/python-ai/progress-bar-lib.md",
-      ] },
       "llm/infra/accelerator.md",
       "llm/infra/huggingface.md",
       "llm/infra/pytorch.md",

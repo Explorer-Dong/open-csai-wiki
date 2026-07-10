@@ -14,7 +14,7 @@ FastAPI 是一个高性能 Python Web 异步开发框架。一些资源如下：
 - [FastAPI 中文文档（社区维护）](https://fastapi.org.cn/)
 - [FastAPI 最佳实践](https://github.com/zhanymkanov/fastapi-best-practices/blob/master/README_ZH.md)
 
-在开始学习 FastAPI 之前，有必要先理解 [异步编程](./async-lib.md) 这个概念。
+在开始学习 FastAPI 之前，有必要先理解 [异步编程](../../../base/ai/python/async-lib.md) 这个概念。
 
 ### 路由函数
 
