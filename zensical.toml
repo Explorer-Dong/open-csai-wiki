@@ -430,7 +430,7 @@ closable = true
 close_expires_hours = 24
 
 [[project.extra.ads.items]]
-text = "飞由智能 · 注册送 5 刀额度，可用 GPT-5.5 等顶级 AI 模型"
+text = "飞由智能 · 注册送 5 刀额度，可用 GPT-5.6 等顶级 AI 模型"
 href = "https://api.clearouter.top/sign-up?aff=baRR"
 color = "#908fff"
 
