@@ -56,6 +56,12 @@ df
 df -h
 ```
 
+只查看部分列：
+
+```bash
+df -h --output=target,size,used,avail,pcent
+```
+
 查看指定文件或文件夹所在空间：
 
 ```bash

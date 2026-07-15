@@ -391,14 +391,14 @@ uv run pytest
     
     ```bash
     # 创建环境
-    uv venv <env_folder>
+    uv venv <env_folder_path> [--python <version>]
     
     # 激活环境
-    source <env_folder>/bin/activate   # Linux / macOS
-    .\<env_folder>\Scripts\activate    # Windows
+    source <env_folder_path>/bin/activate   # Linux / macOS
+    <env_folder_path>\Scripts\activate    # Windows
     
     # 删除环境
-    rm -rf <env_folder>
+    rm -rf <env_folder_path>
     ```
 
 环境同步：
@@ -433,6 +433,9 @@ uv run pytest
     ```bash
     # 复现环境
     uv sync
+
+    # 同样兼容 pip 项目
+    uv pip install -r <path/to/requirements.txt>
     ```
 
 ### 依赖管理

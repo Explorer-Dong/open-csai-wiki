@@ -13,30 +13,35 @@ Shell 是一个用 C 语言编写的用户程序，是用户与操作系统之�
 
 在 Linux 中，常见的 Shell 解释器是 Bash，当然也有 Fish、Zsh 等。不同 Shell 在交互功能和扩展语法上存在差异，但基础语法高度相似，本文以 Bash 为默认讨论对象。
 
-## 脚本
+在实际工程中，简单逻辑用 Shell 脚本，复杂逻辑交给 Python / Go 等高级编程语言。
+
+## 运行方式
 
 将一系列 Shell 命令写入文件并顺序执行，即构成 Shell 脚本，通常以 `.sh` 作为扩展名。
 
-脚本的常见执行方式包括：
+编写好 Shell 代码后，可以使用以下命令检查代码语法是否正确：
 
-- 直接指定解释器：
+```bash
+bash -n script.sh
+# -n 即 no execution
+```
 
-    ```bash
-    bash script.sh
-    ```
+脚本的常见运行方式包括以下两种：
 
-- 作为可执行文件：
+```bash
+# 1. 直接指定解释器
+bash script.sh
 
-    ```bash
-    chmod +x script.sh
-    ./script.sh
-    ```
+# 2. 作为可执行文件运行
+chmod +x script.sh
+./script.sh
+```
 
-    该方法依赖脚本首行的 [Shebang](https://zh.wikipedia.org/wiki/Shebang)，用于声明解释器路径，例如：
+方法 2 依赖脚本首行的 [Shebang](https://zh.wikipedia.org/wiki/Shebang)，用于声明解释器路径，例如：
 
-    ```bash
-    #!/bin/bash
-    ```
+```bash
+#!/bin/bash
+```
 
 ## 语法基础
 
@@ -154,7 +159,3 @@ for file in "$@"; do
     fi
 done
 ```
-
-## 总结
-
-在实际工程中，简单逻辑用 Shell 脚本，复杂逻辑交给 Python / Go 等高级编程语言。

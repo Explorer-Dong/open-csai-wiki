@@ -9,10 +9,18 @@ icon: material/run
 
 ### 运行容器
 
-```bash
-# 基本命令
-docker run [OPTIONS] <image>
+基本命令
 
+```bash
+docker run [OPTIONS] <image> [COMMAND] [ARGS]
+
+# COMMAND 表示启动 <image> 容器后该容器内部执行的命令
+# ARGS 表示容器内部的命令执行时接收的参数
+```
+
+常见用于运行容器的命令：
+
+```bash
 # 后台运行容器
 docker run -d <image>
 
@@ -28,15 +36,40 @@ docker run --rm <image>
 # 交互式运行（-i 保持 STDIN 打开，-t 分配伪终端）
 docker run -it <image>
 
+# 交互结束后自动删除容器
+docker run --rm -it <image>
+
+# 设置容器用户名
+docker run --user <user_name or UID> <image>
+
+# 设置容器用户名和用户组名
+docker run --user <user_name or UID>:<group_name or GID> <image>
+
 # 设置环境变量
 docker run -e MYSQL_ROOT_PASSWORD=<password> <image>
+
+# 挂载目录或数据卷
+docker run -v ~/.cache:/data/.cache <image>
+docker run -v <db_volume>:/data <image>
+
+# 挂载网络
+docker run --network <net> <image>
+
+# 将容器端口与宿主机端口进行映射
+docker run -p [host]<host_port>:<container_port> <image>
 ```
 
-以下参数也较为常见，将会在下面的内容中详细描述：
-
-- `-v`：挂载目录或数据卷
-- `-p`：端口映射（宿主机端口: 容器端口）
-- `--network`：指定网络
+> [!note] 普通用户删除 root 用户产生的数据
+>
+> 当我们使用 root 权限进行 Docker 容器开发时，产生的数据权限也都是 root 级别的，此时如果我们退出了容器就恢复到普通用户了，此时我们就没有权限删除容器开发时产生的文件。解决方案就是临时启动一个容器并以 root 身份进入删除对应的文件：
+>
+> ```bash
+> docker run --rm -it \
+>   --user 0:0 \
+>   -v  /path/to/folder:/data \
+>   ubuntu:24.04 \
+>   bash
+> ```
 
 ### 监控容器
 
@@ -49,65 +82,82 @@ docker ps
 # 查看所有容器（包括已停止的）
 docker ps -a
 
+# 只查看已停止的容器
+docker ps -a -f status=exited
+
 # 显示容器大小
 docker ps -s
+
+# 只输出容器 ID
+docker ps -q
 ```
+
+> [!note] 停止所有运行中的容器
+>
+> ```bash
+> docker ps -q | xargs -r docker stop
+> ```
+>
+> 其中 `| xargs` 表示把前面命令输出的结果直接传递给后面的命令，`-r` 表示如果管道前面的命令没有输出结果，则不执行其后面的命令。
 
 打印容器日志：
 
 ```bash
 # 查看容器的日志
-docker logs <容器名或容器 ID>
+docker logs <container_name or container_id>
 
 # 实时查看日志
-docker logs -f <容器名或容器 ID>
+docker logs -f <container_name or container_id>
 
 # 查看最近 100 行日志
-docker logs --tail 100 <容器名或容器 ID>
+docker logs --tail 100 <container_name or container_id>
 
 # 查看带时间戳的日志
-docker logs -t <容器名或容器 ID>
+docker logs -t <container_name or container_id>
 
 # 查看指定时间后的日志
-docker logs --since 2024-01-01T10:00:00 <容器名或容器 ID>
+docker logs --since 2024-01-01T10:00:00 <container_name or container_id>
+
+# 参数可叠加，例如当历史日志较多时，可以从最近的 100 条日志开始实时查看
+docker logs --tail 100 -f <container_name or container_id>
 ```
 
 打印容器信息：
 
 ```bash
 # 查看容器详细配置
-docker inspect <容器名或容器 ID>
+docker inspect <container_name or container_id>
 
 # 查看特定信息（使用 --format）
-docker inspect --format='{{.NetworkSettings.IPAddress}}' <容器名或容器 ID>
+docker inspect --format='{{.NetworkSettings.IPAddress}}' <container_name or container_id>
 
 # 查看容器内进程
-docker top <容器名或容器 ID>
+docker top <container_name or container_id>
 
 # 实时监控容器的系统资源占用情况
-docker stats [<容器名或容器 ID>]
+docker stats [<container_name or container_id>]
 ```
 
 ### 启停容器
 
 ```bash
 # 停止运行中的容器
-docker stop <容器名或容器 ID>
+docker stop <container_name or container_id>
 
 # 强制停止容器
-docker kill <容器名或容器 ID>
+docker kill <container_name or container_id>
 
 # 启动已停止的容器
-docker start <容器名或容器 ID>
+docker start <container_name or container_id>
 
 # 重启容器
-docker restart <容器名或容器 ID>
+docker restart <container_name or container_id>
 
 # 暂停容器
-docker pause <容器名或容器 ID>
+docker pause <container_name or container_id>
 
 # 恢复暂停的容器
-docker unpause <容器名或容器 ID>
+docker unpause <container_name or container_id>
 ```
 
 > [!note]
@@ -134,10 +184,10 @@ docker exec <容器名或ID> ls -la /app
 
 ```bash
 # 从容器复制文件到宿主机
-docker cp <容器名或容器 ID>:<容器路径> <宿主机路径>
+docker cp <container_name or container_id>:<容器路径> <宿主机路径>
 
 # 从宿主机复制文件到容器
-docker cp <宿主机路径> <容器名或容器 ID>:<容器路径>
+docker cp <宿主机路径> <container_name or container_id>:<容器路径>
 
 # 示例
 docker cp mycontainer:/app/log.txt ./log.txt
@@ -416,7 +466,7 @@ docker compose stop <service_name>
 # 停止所有服务并删除容器（无法指定 service）
 docker compose down
 
-# 停止所有容器并删除容器、删除网络、删除数据卷
+# 停止所有容器并删除容器、删除网络、删除数据卷（挂载到本地路径的数据不会被删除）
 docker compose down -v
 ```
 
@@ -427,7 +477,7 @@ docker compose down -v
 docker compose ps
 
 # 查看服务日志
-docker compose logs -f
+docker compose logs --tail <100> -f [<service_name>]
 ```
 
 ### Docker Compose 示例配置
