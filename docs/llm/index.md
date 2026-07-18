@@ -10,51 +10,51 @@ title: 大模型专栏简介
 
 <div class="grid cards" markdown>
 
--   :lucide-book-open:{ .lg .middle } **基础设施**
+-   :lucide-server-cog:{ .lg .middle } **基础设施**
 
     ---
 
-    计算加速、模型生态与大模型研发所需的基础设施。
+    算力、存储、网络等大模型研发所需的硬件。
 
     [:octicons-arrow-right-24: 开始阅读](./infrastructure/index.md)
 
--   :material-graph-outline:{ .lg .middle } **模型架构**
+-   :lucide-layers:{ .lg .middle } **模型架构**
 
     ---
 
-    Transformer、扩展定律、MoE、推理与多模态等模型原理。
+    Transformer、MoE、DiT 等网络结构。
 
     [:octicons-arrow-right-24: 开始阅读](./architecture/index.md)
 
--   :lucide-file-code-corner:{ .lg .middle } **模型训练**
+-   :lucide-graduation-cap:{ .lg .middle } **模型训练**
 
     ---
 
-    预训练、后训练及相关训练工程方法。
+    数据管线、预训练、后训练等工程方法。
 
     [:octicons-arrow-right-24: 开始阅读](./training/index.md)
 
--   :lucide-bot:{ .lg .middle } **模型部署**
+-   :lucide-zap:{ .lg .middle } **模型部署**
 
     ---
 
-    推理服务、显存管理与高吞吐部署方法。
+    推理服务、模型量化等高吞吐部署方法。
 
     [:octicons-arrow-right-24: 开始阅读](./serving/index.md)
 
--   :lucide-bot:{ .lg .middle } **模型应用**
+-   :lucide-layout-grid:{ .lg .middle } **模型应用**
 
     ---
 
-    模型产品、API 服务与智能体应用。
+    产品形态、智能体等前沿应用。
 
     [:octicons-arrow-right-24: 开始阅读](./application/index.md)
 
--   :lucide-bot:{ .lg .middle } **模型安全**
+-   :lucide-shield-check:{ .lg .middle } **模型安全**
 
     ---
 
-    模型对齐、风险评测与安全治理。
+    伦理对齐、风险评测等安全内容。
 
     [:octicons-arrow-right-24: 开始阅读](./safety/index.md)
 
