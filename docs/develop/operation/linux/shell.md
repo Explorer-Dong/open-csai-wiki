@@ -64,34 +64,55 @@ echo 'hello $name'  # hello $name
 echo "hello $name"  # hello shell
 ```
 
-### 环境变量 export
+### 导出变量 `export`
 
-使用 `export` 将变量添加环境变量：
+使用 `export` 将 Shell 变量导出为环境变量，使其能够被当前 Shell 启动的子进程继承：
 
 ```bash
-# 将 CUDE_VISIBLE_DEVICES=0,1 添加到当前会话
-export CUDE_VISIBLE_DEVICES="0,1"
+# 将 CUDA_VISIBLE_DEVICES=0,1 添加到当前会话的环境变量
+export CUDA_VISIBLE_DEVICES="0,1"
 
 # 将 /custom/bin 添加到系统路径
 export PATH="$PATH:/custom/bin"
 ```
 
-### 命令定义简写 alias 
+> [!note]
+>
+> `export` 只会影响当前 Shell 及其后续启动的子进程，不会反向影响父进程，也不会自动写入配置文件。若希望每次打开终端都生效，需要将 `export` 语句写入 `~/.bashrc` 等启动配置文件中。并执行：
+>
+> ```bash
+> source ~/.bashrc
+> ```
+>
+> 上述命令的作用是在当前 Shell 中重新执行 `~/.bashrc` 文件中的所有命令。注意，该命令不会自动清理已经存在但配置文件中不再出现的变量，如果发现导出的值有误，可以重新 `export` 一遍进行覆盖，如果希望取消变量，可以使用 [`unset`](./shell.md#取消变量-unset) 命令。
 
-alias 用于为常用命令定义简写：
+### 取消变量 `unset`
+
+使用 `unset` 可以删除当前 Shell 中已经存在的变量：
+
+```bash
+unset http_proxy
+unset https_proxy
+```
+
+### 命令别名定义 `alias` 
+
+`alias` 用于给命令定义别名，常用与给长命令定义简写别名。
+
+定义别名：
 
 ```bash
 alias ll='ls -alF'
 alias gs='git status'
 ```
 
-取消 alias：
+取消别名：
 
 ```bash
 unalias ll
 ```
 
-alias 只在当前 Shell 会话中生效，可以写入 `~/.bashrc` 来持久化。
+`alias` 只在当前 Shell 会话中生效，可以写入 `~/.bashrc` 来持久化。
 
 ### 分支
 
