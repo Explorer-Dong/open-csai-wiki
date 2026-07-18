@@ -12,7 +12,7 @@ icon: material/language-python
 1. 先阅读 [工程实践](./engineering.md)，完成解释器、虚拟环境和依赖管理配置。
 2. 再阅读 [语法基础](./grammar.md)，学习数据类型、流程控制、函数、类、异常、迭代器和生成器。
 3. 然后阅读 [常用标准库](./std-lib.md)，掌握路径、日志、拷贝、命令行参数等基础能力。
-4. 如果对开发感兴趣，学完 Python 基础后，可以移步 [软件开发的 Python 专栏](../../../develop/backend/python/index.md) 作进一步阅读。
+4. 接下来可以根据兴趣，选择性学习 Python 的各种第三方库了。如果对 AI 感兴趣，欢迎阅读 [科学计算库](./compute-lib.md)、[数据分析库](./data-analyze-lib.md)、[数据可视化库](./visual-lib.md)、[进度显示库](./progress-bar-lib.md) 等，然后移步 [大模型专栏](../../../llm/index.md) 进一步学习模型训练等 Python 知识；如果对开发感兴趣，可以移步 [Python 后端开发部分](../../../develop/backend/python/index.md) 作进一步阅读。
 
 ## 机制
 

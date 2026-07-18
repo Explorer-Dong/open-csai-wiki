@@ -251,10 +251,10 @@ uv run pytest
 === "pip"
 
     ```bash
-    # 显示缓存路径
+    # 查看缓存路径
     pip cache dir
     
-    # 显示缓存信息（包括路径、大小、数量等）
+    # 查看缓存信息（包括路径、大小、数量等）
     pip cache info
     
     # 清空缓存
@@ -267,17 +267,26 @@ uv run pytest
 === "conda"
 
     ```bash
+    # 查看缓存路径
+    conda config --show pkgs_dirs
+    
+    # 查看可清理的缓存
+    conda clean --dry-run --all
+
     # 清空缓存
     conda clean --all
+
+    # 配置缓存路径
+    conda config --add pkgs_dirs </path/to/conda/pkgs>
     ```
 
 === "uv"
 
     ```bash
-    # 显示缓存路径
+    # 查看缓存路径
     uv cache dir
     
-    # 显示缓存大小（-H 表示符合人类习惯）
+    # 查看缓存大小（-H 表示符合人类习惯）
     uv cache size -H
     
     # 清空缓存
@@ -355,6 +364,18 @@ uv run pytest
     ```
 
 === "conda"
+
+    > [!note]
+    >
+    > conda 会将虚拟环境统一管理，适用于多项目使用同一个虚拟环境的场景。conda 支持自定义虚拟环境的存储路径，这意味着我们可以将 conda 的虚拟环境自定义为便于同步的数据盘：
+    >
+    > ```bash
+    > # 查看虚拟环境存储路径
+    > conda config --show envs_dirs
+    >
+    > # 配置虚拟环境存储路径
+    > conda config --add envs_dirs </path/to/conda/envs>
+    > ```
 
     ```bash
     # 查看环境
