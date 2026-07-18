@@ -34,10 +34,9 @@ curl -fsSL https://claude.ai/install.sh | bash
 
 ### 配置个人端点
 
-配置级别分两种：
+在实际使用场景中，Claude Code CLI 的配置级别主要分「用户级」和「项目级」两种。
 
-- 用户级配置，例如整个机器都属于你，直接编辑 `~/.claude/settings.json` 即可。
-- 项目级配置，例如很多人共享一台服务器，我更推荐使用项目级配置，即直接在项目根目录编辑 `.claude/settings.json`。
+对于用户级配置，例如整个机器都属于你（个人 PC 或个人服务器等），直接编辑 `~/.claude/settings.json` 即可：
 
 ```json
 {
@@ -49,6 +48,8 @@ curl -fsSL https://claude.ai/install.sh | bash
     "ANTHROPIC_DEFAULT_SONNET_MODEL": "gemini-3.1-pro-preview",
     "ANTHROPIC_DEFAULT_HAIKU_MODEL": "deepseek-v4-pro",
     "CLAUDE_CODE_SUBAGENT_MODEL": "gpt-5.5",
+    "CLAUDE_CODE_MAX_CONTEXT_TOKENS": "262144",
+    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "90",
     "DISABLE_AUTOUPDATER": "1"
   },
   "permissions": {
@@ -72,6 +73,17 @@ curl -fsSL https://claude.ai/install.sh | bash
   "skipAutoPermissionPrompt": true,
   "useAutoModeDuringPlan": true
 }
+```
+
+对于项目级配置，例如很多人共享一台服务器。需要在项目根目录编辑 `.claude/settings.json`，配置内容和上述几乎一致，唯一的区别是不要写 `ANTHROPIC_AUTH_TOKEN` 字段，因为明文存储 API 密钥是非常危险的，建议每次启动 Claude Code CLI 之前都将 `ANTHROPIC_AUTH_TOKEN` 作为环境变量输入终端。虽然麻烦了一点，但是可以确保 API 密钥绝对安全：
+
+```bash
+# 启动方法一
+export ANTHROPIC_AUTH_TOKEN="sk-xxx"
+claude
+
+# 启动方法二
+ANTHROPIC_AUTH_TOKEN="sk-xxx" claude
 ```
 
 ## 使用
