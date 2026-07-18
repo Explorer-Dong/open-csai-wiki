@@ -8,7 +8,7 @@ icon: simple/pytorch
 
 ## PyTorch 安装
 
-默认大家对 [CPU 体系](../../../base/cs/operating-system/index.md) 有一定的了解，那么从 CPU 过渡到 GPU 就有迹可循了：
+默认大家对 [CPU 体系](../../base/cs/computer-organization/cpu.md) 有一定的了解，那么从 CPU 过渡到 GPU 就有迹可循了：
 
 | 层级         | CPU                  | GPU            |
 | ------------ | -------------------- | -------------- |

@@ -639,7 +639,7 @@ $$
 - 数据质量混杂：专家数据、普通用户数据和错误数据混在一起；
 - 规模化训练：把轨迹数据作为序列数据训练大模型。
 
-Decision Transformer、Trajectory Transformer 等方法把 RL 轨迹转化为序列建模问题，与 [Transformer](../../../llm/model/transformer/index.md) 和大规模预训练产生了联系。但它们更像条件行为建模，不天然解决探索问题。
+Decision Transformer、Trajectory Transformer 等方法把 RL 轨迹转化为序列建模问题，与 [Transformer](../../../llm/architecture/transformer.md) 和大规模预训练产生了联系。但它们更像条件行为建模，不天然解决探索问题。
 
 ### 世界模型与可规划智能体
 
@@ -682,7 +682,7 @@ RLAIF 使用 AI 反馈替代部分人类反馈，降低标注成本。RLVR 使�
 
 ### 大模型智能体中的 RL
 
-大模型智能体需要调用工具、检索信息、写代码、操作浏览器、执行多步计划。这里的动作不再是简单的离散按钮，而可能是函数调用、命令、自然语言子任务或外部 API。相关内容可参考 [智能体](../../../llm/downstream/agent/index.md)。
+大模型智能体需要调用工具、检索信息、写代码、操作浏览器、执行多步计划。这里的动作不再是简单的离散按钮，而可能是函数调用、命令、自然语言子任务或外部 API。相关内容可参考 [智能体](../../../llm/application/agent/index.md)。
 
 这个方向的 RL 难点包括：
 
