@@ -25,7 +25,6 @@ nav = [
         "base/ai/python/engineering.md",
         "base/ai/python/grammar.md",
         "base/ai/python/std-lib.md",
-        "base/ai/python/async-lib.md",
         "base/ai/python/compute-lib.md",
         "base/ai/python/data-analyze-lib.md",
         "base/ai/python/visual-lib.md",
@@ -200,6 +199,8 @@ nav = [
       ] },
       { Python = [
         "develop/backend/python/index.md",
+        "develop/backend/python/concurrent-lib.md",
+        "develop/backend/python/async-lib.md",
         "develop/backend/python/network-lib.md",
         "develop/backend/python/dbms-lib.md",
       ] },

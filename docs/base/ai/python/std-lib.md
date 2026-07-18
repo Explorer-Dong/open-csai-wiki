@@ -991,7 +991,7 @@ do_something()
 
 > [!note]
 >
-> `.wait()` 类似于 await 一个 Coroutine，详见 [异步编程](./async-lib.md) 的笔记。
+> `.wait()` 会阻塞当前线程。异步程序可以使用 `asyncio.create_subprocess_exec()` 启动子进程，再 `await process.wait()`；等待期间，事件循环仍能继续处理其他任务。详见 [异步编程](../../../develop/backend/python/async-lib.md) 的笔记。
 
 ## sys
 
