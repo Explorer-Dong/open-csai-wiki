@@ -601,16 +601,24 @@ uv 会自动维护 `pyproject.toml` 和 `uv.lock`。
 
 === "uv"
 
+    方案一：先更新 uv.lock 然后更新依赖。适用于不需要修改版本约束的场景，因为该方法无法同步更新 pyproject.toml。
+
     ```bash
-    # 更新锁文件中的全部依赖版本
+    # 更新 uv.lock 中的全部依赖版本
     uv lock --upgrade
-    # 同步环境
+    # 同步环境（下载并安装新版本依赖）
     uv sync
     
-    # 更新锁文件中的指定依赖版本
+    # 更新 uv.lock 中的指定依赖版本
     uv lock --upgrade-package <pkg>[=<version>]
-    # 同步环境
+    # 同步环境（下载并安装新版本依赖）
     uv sync
+    ```
+
+    方案二：一次性更新 uv.lock 和 pyproject.toml，同时更新依赖。适用于需要修改版本约束的场景（例如依赖进行了破坏性更新）。
+
+    ```bash
+    uv add "pkg>=0.0.2"
     ```
 
 ## 项目结构
