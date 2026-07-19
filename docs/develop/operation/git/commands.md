@@ -43,6 +43,12 @@ git config user.email "xxx@xxx.com"
 
 ### 配置网络代理
 
+当我们需要和 [远程](#远程) 仓库交互代码时，如果受到了网络限制，需要配置代理才能继续。
+
+代理配置取决于远程仓库的连接方式。可以使用 `git remote -v` 查看连接方式。
+
+**情况一：使用 HTTPS 协议连接**。可以直接使用 git 自带的 HTTPS 代理配置方法：
+
 ```bash
 # 查看代理
 git config --get http.proxy
@@ -57,13 +63,15 @@ git config --unset http.proxy
 git config --unset https.proxy
 ```
 
-如果走 SSH 协议，先装一个软件：
+**情况二：使用 SSH 协议连接**。需要配置本地 OpenSSH 的代理，这样 Git 调用 OpenSSH 与远程仓库连接时就不会出现网络问题了：
+
+首先安装 `netcat` 软件：
 
 ```bash
 sudo apt updata && sudo apt install netcat-openbsd -y
 ```
 
-然后给 ~/.ssh/config 文件加一个配置：
+然后在 `~/.ssh/config` 中给对应主机加上 `ProxyCommand` 字段的配置：
 
 ```text hl_lines="6"
 Host github-sub
@@ -74,11 +82,15 @@ Host github-sub
     ProxyCommand nc -x 127.0.0.1:7897 [<-X 5/connect>] %h %p
 ```
 
-如果是 HTTPS 代理，就填 -X connect，如果是 SOCKS v.5 代理，就填 -X 5。
+> [!note]- `[-X 5/connect]` 参数选择
+>
+> 如果本地代理走的是 HTTPS 协议，就填 `-X connect`，如果本地代理走的是 SOCKS v.5 协议，就填 `-X 5`。
+>
+> 部分代理软件使用的是混合端口，例如以 Mihomo 为内核的代理软件任选一个即可。另外由于 netcat 默认协议是 `-X 5`，所以不填也行。
+>
+> ![Clash Verge Rec 使用 Mihomo 内核，端口是混合的](https://cdn.dwj601.cn/images/20260614124400088.png)
 
-部分代理软件使用的是混合端口，例如 Mihomo 内核的代理软件就任选一个即可，由于 nc 默认 -X 5，所以不填也行。
-
-![Clash Verge Rec 使用 Mihomo 内核，端口是混合的](https://cdn.dwj601.cn/images/20260614124400088.png)
+在单用户的场景下，方案一更简便，但是如果你有多个 [GitHub](../github.md) 账号，那更推荐使用方法二，即：使用 SSH 协议连接远程仓库，然后通过 `~/.ssh/config` 配置不同账号的连接方式，通过 `Host` 字段区分。
 
 ### 配置中文转义
 
@@ -345,7 +357,7 @@ git push <remote_name> --delete <branch_name>
 
 ## 远程
 
-远程表示代码托管平台，用来对代码进行分布式管理，一般用于多人协作、代码备份等。常见的代码托管平台有 GitHub、GitLab、Gitee 等，这里不做说明都指 GitHub。
+远程表示代码托管平台，用来对代码进行分布式管理，一般用于多人协作、代码备份等。常见的代码托管平台有 [GitHub](../github.md)、GitLab、Gitee 等，这里不做说明都指 GitHub。
 
 ### 查看远程仓库
 
