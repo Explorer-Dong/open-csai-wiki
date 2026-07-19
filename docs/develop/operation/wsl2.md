@@ -229,6 +229,16 @@ appendWindowsPath = true
 # default = <用户名>
 ```
 
+配置时区：
+
+```bash
+# 查看时区
+timedatectl
+
+# 配置时区为美国太平洋时间
+sudo timedatectl set-timezone America/Los_Angeles
+```
+
 ### 重置发行版密码
 
 如果忘记了 Linux 用户密码：
@@ -335,13 +345,9 @@ export http_proxy=127.0.0.1:<port>
 export https_proxy=127.0.0.1:<port>
 ```
 
-## 常见应用
+## 使用案例：WSL + VSCode
 
-说了那么多 WSL 的管理方法，那么 WSL 到底有哪些用呢？我目前主要用 WSL 完成以下任务。
-
-### WSL + VSCode
-
-为了在 Windows 平台进行 Linux 开发，我们能可以借助 WSL 和 VSCode。
+WSL 的最大用处就是在 Windows 进行 Linux 开发，我们一般借助 VSCode 连接本地 WSL 进行开发。连接方法有两种：
 
 方法一：在 VSCode 插件市场中搜索 `WSL` 并安装，调起命令面板后输入 `WSL: Connect to WSL` 即可连接本地 WSL 实例：
 
@@ -350,3 +356,5 @@ export https_proxy=127.0.0.1:<port>
 方法二：在「远程资源管理器」中选择「WSL 目标」来连接本地 WSL 实例：
 
 ![在「远程资源管理器」中选择「WSL 目标」来连接本地 WSL 实例](https://cdn.dwj601.cn/images/20260309190922658.png)
+
+之后就可以调起终端使用各种 Linux 命令了。这在当今 AI Coding 年代是非常方便的，因为 PowerShell 的生态远不如 Bash/Zsh，AI 更擅长后者。
