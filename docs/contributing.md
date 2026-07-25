@@ -45,13 +45,13 @@ title: 参与贡献
 2）克隆仓库到本地：
 
 ```bash
-git clone https://github.com/<username>/wiki.git
-cd wiki
+git clone https://github.com/<username>/open-csai-wiki.git
+cd open-csai-wiki
 ```
 
 3）配置 Python 环境：
 
-项目使用 uv 进行管理，请先 [安装 uv](./base/ai/python/engineering.md#工具安装)。接下来同步环境即可：
+项目使用 uv 进行管理，请先安装 [uv](./base/ai/python/engineering.md#uv)。接下来同步环境即可：
 
 === "Windows"
 
