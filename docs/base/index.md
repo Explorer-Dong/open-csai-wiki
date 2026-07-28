@@ -14,7 +14,6 @@ flowchart LR
     python(Python 编程)
     数字图像处理(数字图像处理)
     机器学习(机器学习)
-    数据挖掘(数据挖掘)
     深度学习(深度学习)
     强化学习(强化学习)
     语音信号处理(语音信号处理)
@@ -22,7 +21,6 @@ flowchart LR
     计算机视觉(计算机视觉)
 
     %% 关系定义
-    机器学习 --> 数据挖掘
     深度学习 --> 语音信号处理 & 自然语言处理 & 计算机视觉
     数字图像处理 --> 计算机视觉
 
@@ -39,7 +37,6 @@ flowchart LR
     click python "./ai/python/"
     click 数字图像处理 "./ai/digital-image-processing/"
     click 机器学习 "./ai/machine-learning/"
-    click 数据挖掘 "./ai/data-mining/"
     click 深度学习 "./ai/deep-learning/"
     click 强化学习 "./ai/reinforcement-learning/"
     click 语音信号处理 "./ai/speech-signal-processing/"

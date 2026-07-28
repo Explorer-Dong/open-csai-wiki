@@ -45,7 +45,7 @@ title: 目标检测
 - FN：没有被匹配的真实框数量；
 - TN：不包含目标的预测框数量（这类数量很多，一般不看）。
 
-AP 就是 [P-R 曲线](../machine-learning/model-select.md#p-r-曲线) 下的面积，最后可以给所有类别的 AP 取一个均值得到平均精度均值 (mean Average Precision, mAP)。
+AP 就是 [P-R 曲线](../machine-learning/evaluation.md#p-r-曲线) 下的面积，最后可以给所有类别的 AP 取一个均值得到平均精度均值 (mean Average Precision, mAP)。
 
 > [!tip]
 >
