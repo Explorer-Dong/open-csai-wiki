@@ -168,14 +168,36 @@ tmux kill-session -t <session_name>
 ```bash
 # 退出会话
 Ctrl+b d
+
+# 罗列所有会话
+Ctrl+b s
+# Enter 进入会话
+# x + y 删除会话
+# Esc 退出界面
 ```
 
-启用滚轮：
+配置 tmux 方法一：会话中临时设置（以启用滚轮为例）
 
-- 进入 tmux 会话
-- 输入 `Ctrl + b + :`
-- 输入 `set -g mouse on`
-- 回车后即可使用滚轮
+1. 进入 tmux 会话
+2. 输入 `Ctrl + b + :`
+3. 输入 `set -g mouse on`
+4. 回车后即可使用滚轮
+
+配置 tmux 方法二：编辑 `~/.tmux.conf` 文件
+
+```toml
+# 启用鼠标
+set -g mouse on
+
+# 增加历史滚动行数
+set -g history-limit 100000
+```
+
+重新加载 tmux 配置文件以让旧对话也能用上这些特性：
+
+```bash
+tmux source-file ~/.tmux.conf
+```
 
 ## 下载器 wget
 
