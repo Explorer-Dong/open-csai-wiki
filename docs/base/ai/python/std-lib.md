@@ -132,7 +132,7 @@ print("Deep copied:\t", deep_copied)        # [1, 2, [3, 4]]
 
 `datetime` 库提供了日期和时间的处理功能。
 
-### 基础使用
+### 基本用法
 
 ```python
 from datetime import datetime, date, time, timedelta
@@ -625,7 +625,7 @@ os.makedirs(name="/path/to/folder", exist_ok=True)
 # exist_ok=True 表示当目录存在时不会报错
 ```
 
-### 基础功能
+### 基本用法
 
 ```python
 import os
@@ -728,86 +728,143 @@ print(f"路径分隔符: {os.sep}")  # '/' 或 '\'
 
 ## pathlib
 
-`pathlib` 是面向对象的路径操作库，同时让开发人员无需关心操作系统的路径分隔符差异，比 `os.path` 更现代、更易用。
+`pathlib` 是 Python 的面向对象路径操作库，可以屏蔽不同操作系统之间的路径分隔符差异，相比 `os.path` 更统一、易读。
 
-### 基础操作
+### 基本用法
 
 ```python
-# 导入方法
 from pathlib import Path
 
-# 创建路径对象（填充值取决于操作系统）
+# 创建路径对象
 p = Path("/home/user/documents/report.tar.gz")
-print(p)  # 会根据操作系统自动转换
 
-# 路径拼接（使用 / 操作符，需要最左边为 Path 对象）
-new_p = Path("/home") / "subfolder" / "file.txt"
+# 路径拼接，最左侧必须是 Path 对象
+new_path = Path("/home") / "user" / "file.txt"
 
-# 基础操作
-cwd = Path.cwd()  # 获取当前工作目录
-home = Path.home()  # 获取用户主目录
+# 常用目录
+cwd: Path = Path.cwd()    # 当前工作目录
+home: Path = Path.home()  # 当前用户主目录
 
-# 获取路径属性
-print(f"所有父目录: {p.parent}")  # /home/user/documents
-print(f"文件名: {p.name}")  # report.tar.gz
-print(f"文件名去掉最后一个扩展: {p.stem}")  # report.tar
-print(f"扩展名: {p.suffix}")  # .gz
-print(f"所有扩展名: {p.suffixes}")  # ['.tar', '.gz']
-print(f"路径各部分: {p.parts}")  # ('/', 'home', 'user', 'documents', 'report.tar.gz')
+# 路径属性
+parent: Path = p.parent           # /home/user/documents
+name: str = p.name                # report.tar.gz
+stem: str = p.stem                # report.tar
+suffix: str = p.suffix            # .gz
+suffixes: list[str] = p.suffixes  # [".tar", ".gz"]
+parts: tuple[str, ...] = p.parts  # ('/', 'home', 'user', 'documents', 'report.tar.gz')
 
-# 判断路径类型
-print(f"是否绝对路径: {p.is_absolute()}")
-print(f"是否存在: {p.exists()}")
-print(f"是否是文件: {p.is_file()}")
-print(f"是否是目录: {p.is_dir()}")
+# 路径判断
+is_absolute: bool = p.is_absolute()
+exists: bool = p.exists()
+is_file: bool = p.is_file()
+is_dir: bool = p.is_dir()
 ```
 
 ### 文件操作
 
+基本文件操作：
+
 ```python
 from pathlib import Path
-
-# 读写文本文件
-p = Path("/path/to/example.txt")
-p.write_text("Hello, World!", encoding="utf-8")
-content = p.read_text(encoding="utf-8")
-
-# 读写二进制
-p = Path("/path/to/example.pth")
-data = p.read_bytes()
-p.write_bytes(b'\x00\x01\x02')
-
-# 创建目录
-Path("new_folder").mkdir(exist_ok=True)  # exist_ok=True 表示目录已存在时再次创建不会报错
-Path("parent/child").mkdir(parents=True, exist_ok=True)  # parents=True 表示递归创建
 
 # 删除文件
-Path("/path/to/file.txt").unlink()
-Path("/path/to/file.txt").unlink(missing_ok=True)  # missing_ok=True 表示即使文件不存在也不会报错
+Path("file.txt").unlink()
+Path("file.txt").unlink(missing_ok=True)
 
-# 删除目录（只能是空目录）
-Path("/path/tofolder").rmdir()
-
-# 重命名
-Path('old.txt').rename('new.txt')
+# 重命名或移动
+Path("old.txt").rename("new.txt")
 ```
 
-### 遍历目录
+**`r`：读取文件**。文件必须存在。文件对象支持逐行迭代，不会一次性将整个文件加载到内存：
+
+```python
+from pathlib import Path
+from typing import TextIO
+
+path: Path = Path("data.txt")
+
+with path.open(mode="r", encoding="utf-8") as f:
+    file: TextIO = f
+
+    # 逐行读取，每次返回一行字符串
+    for line in file:
+        line: str
+        content: str = line.rstrip("\r\n")
+```
+
+**`w`：覆盖写入文件**。文件不存在时自动创建；文件存在时清空原内容：
+
+```python
+from pathlib import Path
+from typing import TextIO
+
+path: Path = Path("data.txt")
+
+# 确保父目录存在
+path.parent.mkdir(parents=True, exist_ok=True)
+
+with path.open(mode="w", encoding="utf-8") as f:
+    file: TextIO = f
+
+    # 返回实际写入的字符数
+    written_chars: int = file.write("第一行\n")
+
+    # 写入多个字符串，不会自动添加换行符
+    result: None = file.writelines([
+        "第二行\n",
+        "第三行\n",
+    ])
+
+# 一次性覆盖写入文本
+written_chars: int = path.write_text(
+    "Hello, World!\n",
+    encoding="utf-8",
+)
+```
+
+**`a`：追加写入文件**。文件不存在时自动创建；文件存在时保留原内容，并将新内容写入末尾：
+
+```python
+from pathlib import Path
+from typing import TextIO
+
+path: Path = Path("data.txt")
+
+# 确保父目录存在
+path.parent.mkdir(parents=True, exist_ok=True)
+
+with path.open(mode="a", encoding="utf-8") as f:
+    file: TextIO = f
+
+    # 返回实际追加的字符数
+    written_chars: int = file.write("追加一行\n")
+
+    # 追加多个字符串，不会自动添加换行符
+    result: None = file.writelines([
+        "追加第二行\n",
+        "追加第三行\n",
+    ])
+```
+
+### 目录操作
 
 ```python
 from pathlib import Path
 
-# 列出目录内容
-p = Path('.')
-for item in p.iterdir():
+# 创建目录
+Path("new_folder").mkdir(exist_ok=True)
+Path("parent/child").mkdir(parents=True, exist_ok=True)
+
+# 遍历目录
+path: Path = Path(".")
+for item in path.iterdir():
+    # 遍历当前目录
     print(item)
-
-# 递归查找文件
-for txt_file in p.rglob('*.txt'):
+for txt_file in path.rglob("*.txt"):
+    # 递归查找所有 txt 文件
     print(txt_file)
-
-# 使用 glob 模式匹配
-for py_file in p.glob('**/*.py'):
+for py_file in path.glob("**/*.py"):
+    # 使用 glob 模式匹配
     print(py_file)
 ```
 
@@ -815,7 +872,7 @@ for py_file in p.glob('**/*.py'):
 
 `re` 库提供了强大的正则表达式功能。
 
-### 基本匹配
+### 基本用法
 
 ```python
 import re

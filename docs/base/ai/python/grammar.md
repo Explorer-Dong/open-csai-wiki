@@ -488,6 +488,91 @@ finally:
     ...
 ```
 
+## 上下文管理器
+
+上下文管理器 (Context Manager) 用于在进入和退出一段代码时执行固定操作，常见用途包括文件操作管理、锁管理和网络连接管理。即使代码块中途抛出异常，退出逻辑也会执行，比手动清理资源更可靠。
+
+### 原理解析
+
+`with` 语句是上下文管理器的基本用法：
+
+```python
+with context_manager as resource:
+    use(resource)
+```
+
+执行流程如下：
+
+1. 调用上下文管理器的 `__enter__()` 方法，其返回值会赋给 `as` 后的变量；
+2. 执行 `with` 代码块；
+3. 退出代码块时调用 `__exit__()` 方法，无论代码块正常结束还是抛出异常。
+
+例如，可以通过实现这两个方法自定义上下文管理器：
+
+```python
+class Connection:
+    def __enter__(self):
+        print("建立连接")
+        return self
+
+    def query(self):
+        print("执行查询")
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        print("关闭连接")
+        return False
+
+with Connection() as connection:
+    connection.query()
+```
+
+`__exit__()` 接收异常类型、异常对象和 traceback。当代码块没有抛出异常时，这三个参数均为 `None`；返回 `True` 会抑制异常，返回 `False` 或 `None` 则让异常继续向外传播。除非能够在当前层级正确处理异常，否则不应抑制异常。
+
+### 使用示例
+
+文件操作管理。文件对象的退出逻辑会关闭文件，即使读取过程中抛出异常，也不需要手动调用 `close()`，可以避免文件描述符泄漏：
+
+```python
+from pathlib import Path
+
+path = Path("config.txt")
+with path.open(encoding="utf-8") as file:
+    content = file.read()
+
+# 离开 with 代码块后，文件已经关闭
+print(file.closed)  # True
+```
+
+锁管理。锁对象的进入逻辑会获取锁，退出逻辑会释放锁，可以避免异常导致锁没有释放：
+
+```python
+from threading import Lock
+
+lock = Lock()
+balance = 100
+
+with lock:
+    # 同一时间只有一个线程能够执行这段代码
+    balance -= 20
+
+# 离开 with 代码块后，其他线程可以继续获取该锁
+```
+
+网络连接管理。连接对象的退出逻辑会关闭连接，适合管理客户端套接字等需要及时释放的网络资源，可以避免套接字描述符泄漏和连接长期占用：
+
+```python
+import socket
+
+address = ("example.com", 80)
+with socket.create_connection(address, timeout=5) as connection:
+    request = b"GET / HTTP/1.1\r\nHost: example.com\r\nConnection: close\r\n\r\n"
+    connection.sendall(request)
+    response = connection.recv(4096)
+
+# 离开 with 代码块后，连接已经关闭
+print(response.decode("utf-8", errors="replace"))
+```
+
 ## 断言
 
 在代码编写的过程中，为了快速验证逻辑，我们一般会使用断言语句，即 `assert`。其基本用法是：
