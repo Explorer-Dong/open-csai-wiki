@@ -183,3 +183,10 @@ th {
 .md-sidebar__scrollwrap.scrollbar-hidden:focus-within::-webkit-scrollbar-thumb { background-color: var(--md-default-fg-color--lighter) !important; }
 .md-sidebar__scrollwrap.scrollbar-hidden:hover::-webkit-scrollbar-thumb:hover,
 .md-sidebar__scrollwrap.scrollbar-hidden:focus-within::-webkit-scrollbar-thumb:hover { background-color: var(--md-accent-fg-color) !important; }
+
+/* ==================== 回到顶部按钮 ==================== */
+/* 显示在页面顶部而不是底部 */
+.md-top {
+  top: 6rem !important;
+  bottom: auto !important;
+}
