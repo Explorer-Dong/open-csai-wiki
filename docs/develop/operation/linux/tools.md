@@ -147,7 +147,7 @@ apt update
 apt install tmux
 ```
 
-基本命令：
+终端命令：
 
 ```bash
 # 新建并进入会话
@@ -161,9 +161,12 @@ tmux ls
 
 # 删除会话
 tmux kill-session -t <session_name>
+
+# 重命名会话
+tmux rename-session -t <old_session_name> <new_session_name>
 ```
 
-控制命令：
+会话中快捷键：
 
 ```bash
 # 退出会话
@@ -171,33 +174,42 @@ Ctrl+b d
 
 # 罗列所有会话
 Ctrl+b s
+# ↑ ↓ 选择会话
 # Enter 进入会话
 # x + y 删除会话
 # Esc 退出界面
+
+# 重命名会话
+Ctrl+b $
 ```
 
-配置 tmux 方法一：会话中临时设置（以启用滚轮为例）
+软件配置：
 
-1. 进入 tmux 会话
-2. 输入 `Ctrl + b + :`
-3. 输入 `set -g mouse on`
-4. 回车后即可使用滚轮
+=== "方法一：编辑 `~/.tmux.conf` 文件"
 
-配置 tmux 方法二：编辑 `~/.tmux.conf` 文件
+    ```toml
+    # 启用鼠标
+    set -g mouse on
 
-```toml
-# 启用鼠标
-set -g mouse on
+    # 增加历史滚动行数
+    set -g history-limit 100000
+    ```
 
-# 增加历史滚动行数
-set -g history-limit 100000
-```
+    之后重新加载 tmux 配置文件让旧对话也能用上这些特性：
 
-重新加载 tmux 配置文件以让旧对话也能用上这些特性：
+    ```bash
+    tmux source-file ~/.tmux.conf
+    ```
 
-```bash
-tmux source-file ~/.tmux.conf
-```
+=== "方法二：会话中临时设置"
+
+    ```bash
+    # 以启用滚轮为例
+    # 1. 进入 tmux 会话
+    # 2. 输入 `Ctrl + b + :`
+    # 3. 输入 `set -g mouse on`
+    # 4. 回车后即可使用滚轮
+    ```
 
 ## 下载器 wget
 
