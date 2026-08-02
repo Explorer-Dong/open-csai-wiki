@@ -239,24 +239,75 @@ ${{ <type>.<key> }}
 
 > [!note]
 >
-> 利用 GitHub Actions 将静态网站部署到 Aliyun OSS 上（这也是本网站目前的 [部署方法](https://github.com/Explorer-Dong/open-csai-wiki/blob/main/.github/workflows/deploy_document.yml) 哟 😉）。
+> 利用 GitHub Actions 将静态网站部署到 [GitHub Pages](#github-pages) 上。
 >
 > 如果你用的是 VSCode 编写工作流，可以安装 GitHub 自己开发的 [Actions 插件](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-github-actions) 获得更好的编辑体验。
 
 直接看具体的工作流：
 
-```yaml title=".github/workflows/deploy_document.yml"
---8<-- ".github/workflows/deploy_document.yml"
+```yaml
+# 工作流的名称
+name: Deploy document
+
+# 工作流触发事件
+on:
+  push:
+    branches:
+      - main
+
+  # 允许手动触发
+  workflow_dispatch:
+
+# GitHub Pages 部署权限
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  main:
+    # 仅允许在原始仓库运行
+    if: ${{ github.repository == 'Explorer-Dong/open-csai-wiki' }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+      # 拉取代码
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      # 配置 Python
+      - name: Setup python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.13.11'
+
+      # 配置 uv
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          activate-environment: "true"
+
+      # 安装依赖
+      - name: Install python dependence
+        run: uv sync
+
+      # 构建网站
+      - name: Build website
+        run: zensical build
+
+      # 上传 GitHub Pages artifact
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./site
+
+      # 部署到 GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
 ```
-
-工作流中的部分参考内容如下：
-
-- [Aliyun CLI GitHub 仓库](https://github.com/aliyun/aliyun-cli)
-- [Aliyun CLI 官方文档](https://help.aliyun.com/zh/cli/)
-- [ossutil 复制命令 cp 的参数选项](https://help.aliyun.com/zh/oss/developer-reference/cp-upload-file)
-- [GitHub Actions 最大并发量](https://docs.github.com/en/actions/reference/limits#job-concurrency-limits-for-github-hosted-runners)
-- [GitHub Cache Action](https://github.com/actions/cache)
-- [Material for Mkdocs CI 中的 cache 示例](https://github.com/squidfunk/mkdocs-material/blob/master/.github/workflows/documentation.yml)
 
 ## GitHub Pages
 
