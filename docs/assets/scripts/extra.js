@@ -23,19 +23,19 @@ document$.subscribe(function () {
 /**
  * 在页脚显示备案信息
  */
-document$.subscribe(() => {
-    const container = document.querySelector(".md-copyright");
-    if (!container) return;
+// document$.subscribe(() => {
+//     const container = document.querySelector(".md-copyright");
+//     if (!container) return;
 
-    const record = document.createElement("div");
-    record.innerHTML = `
-    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">
-      苏ICP备2024087610号-1
-    </a>
-    `;
+//     const record = document.createElement("div");
+//     record.innerHTML = `
+//     <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">
+//       苏ICP备2024087610号-1
+//     </a>
+//     `;
 
-    container.appendChild(record);
-});
+//     container.appendChild(record);
+// });
 
 /**
  * 百度统计
