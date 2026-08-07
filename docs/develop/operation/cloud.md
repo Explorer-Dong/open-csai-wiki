@@ -1,121 +1,55 @@
 ---
-title: Cloud
+title: 云服务
 icon: lucide/cloud
 ---
 
-> [!tip]
->
-> 由于笔者一开始入坑了阿里云，这里就以其为主要介绍对象。其余供应商应当有类似的服务，这里难以覆盖，见谅。
->
-> 另外，作为独立开发者，肯定是能省则省，所以本文介绍的各种服务理论上是性价比不错的穷鬼套餐，如果有更合适的方案，欢迎评论区交流。
-
 很多时候我们需要一台 7*24 待命的机器托管我们的服务，鉴于本地门槛较高（场地、稳定性、安全性等），此时付费使用云服务商提供的服务是一个不错的选择。
 
-## 代码托管：GitHub
+本文主要围绕 Cloudflare（后简称 CF）生态介绍云服务的相关产品以及使用方法。
 
-费用：0。
+## 域名
 
-[GitHub](./github.md) 的含金量自不必多说。
+域名用于包装服务器的 IP 地址，用户在访问域名时，[Name Server](../../base/cs/computer-network/application-layer.md#dns-协议) 会将域名转换为 IP，进而提供服务。每家域名供应商几乎都会定义自己的 Name Server。
 
-## CI/CD：GitHub Actions
+为了使用 CF 的云服务，我们需要将在其他地方（例如阿里云万网、Spaceship 等）注册购买的域名连接到 CF Domains，连接的原理就是把域名的 Name Server 修改为 CF 的 Name Server。
 
-费用：free plan 用户每个月 2000 分钟的 CI/CD 时长，基本用不完，等于免费。
+操作上，进入 CF 的 dashboard 后，进入 `Domains` >> `Overview` >> `Add domain` >> `Connect a domain`。之后按照教程，选择 Free Plan，然后到域名注册商那里把 Name Server 修改为 CF 提供的 Name Server，就算连接成功了。
 
-[GitHub Actions](./github.md#github-actions) 的含金量自不必多说。
+连接成功后，就可以进入域名栏目进行常规的域名操作。比如 DNS 解析等等。只要域名解析时启用了 CF 的流量代理，就可以享受 CF 提供的各种便捷服务了，比如免费且自动续签的 SSL Edge 证书和 SSL Origin 证书。前者解决客户端到 CF 代理的加密，后者解决 CF 代理到源服务器的加密。
 
-## 云服务器：阿里云 ECS
+## 静态网页托管
 
-[费用](https://www.aliyun.com/price/product?spm=a2c4g.11186623.0.0.76a12330rmr8iS#/ecs/detail/vm)：
+[CF Pages](https://developers.cloudflare.com/pages/) 提供了免费的静态网页托管服务，结合 CF 代理和防护，可以实现零成本、高安全的网页托管。
 
-- 机器：新用户能开「99 ￥/年，2C2G3M」的机器，可同价格续费一年。
-- 流量：公网流出 0.8 ￥/GB。
+为了便于 CI/CD，我推荐使用 [GitHub](./github.md) 托管代码，CF 可以自动检测更新并运行构建命令发布或更新网页。基本逻辑如下：
 
-使用：
+1. 进入 `Compute` >> `Workers & Pages` >> `Create application` >> `Deploy Pages`。
+2. 如果没有高频迭代需求，可以直接把网页拖拽进去，否则选择 Import Git Repostory。
+3. 接下来连接 GitHub 的仓库并配置构建命令。
+4. 启动部署后过一段时间就可以看到你的静态网页被托管在了 `xxx.pages.dev` 上。
 
-- 使用 [Linux](./linux/index.md) 命令管理资源。
-- 使用 [Docker](./docker/index.md) 部署程序。
-- 使用 [Nginx](./nginx/index.md) 反代服务。
+后续如果在 GitHub 更新了代码，CF Pages 会自动检测到变化并重新构建发布，整个 CI/CD 流程对开发者完全透明，非常方便。另外也可以在 Metrics 中启用 CF Web Analytics，以及在 Custom domains 中自定义域名。
 
-> [!note]
->
-> 记得放通出方向的端口，例如 SSH 连接的 22 端口、HTTP 服务的 80 端口、HTTPs 服务的 443 端口。
+## 对象存储
 
-## 域名：万网
+[CF R2](https://developers.cloudflare.com/r2/) 提供了便捷的对象存储服务，但是需要提供付费方式才能使用，实测绑定 PayPal 后就可以正常使用，别的方法就八仙过海各显神通了。
 
-费用：`.cn` 39 ￥/年。
+对于可使用的用户，CF R2 提供了 10GB 的免费存储空间以及每月一定次数 CRUD 的操作，在个人或小型业务场景下完全足够。此外，CF R2 也支持自定义域名以达到资源 CDN 的效果。最重要的是，CF R2 的所有上下行流量均免费。
 
-使用：
+## 云服务器
 
-- 将购买的域名解析到对应的服务上，例如服务器 IP、其他服务的 CNAME 等。
+如果你需要一台机器 24 小时运行你的应用，云服务器是不二选择。目前支付友好的平台除了国内的阿里云、腾讯云等，还有国外的 DigitalOcean。各种二三流的云服务器平台需要读者自行承担跑路风险。
 
-> [!note]
->
-> - 如果域名解析的服务器在大陆，需要按照法律规定进行主体备案，否则无需备案。
-> - SSL 证书需要按需购买/订阅，才能以 `https://example.com` 的形式提供服务。
+新手推荐购买阿里云新用户的 2C2G3M 云服务器，前两年都只要 99 元。老手想必都有自己的路子，就不多赘述。
 
-## 对象存储：阿里云 OSS
+连接上云服务器后就可以部署自己的应用了。笔者习惯使用 [docker compose](./docker/index.md) 部署应用同时把数据保存在项目目录而非 docker volume，因为这方便管理和快速迁移。代价就是需要把应用打包到 docker hub 之类的软件平台，读者可以选择自己熟悉的方式部署应用。
 
-[费用](https://www.aliyun.com/price/product#/oss/detail/oss)：
+应用部署好以后，还需要使用 Nginx 把服务端口和域名绑定，确保流量能够正确代理到对应的应用。同时需要在 CF Domains 申请一张 Origin SSL 证书并安装到服务器上，目前 CF 提供最长 15 年的 Origin SSL，安装一次以后开发者就无需操心 SSL 证书的更新了。读者可移步 [Nginx](./nginx/index.md) 文档作进一步了解。
 
-- 存储：按量计费（可买套餐，例如 40 GB 每年 9 ￥）。
-- 流量：公网流出白天 0.5 ￥/GB，凌晨 0.25 ￥/GB（可买套餐）；CDN 回源流出流量 0.15 ￥/GB（可买套餐）。
+最后，你需要在云服务平台把服务器的 443 端口出方向放通，确保用户可以通过 HTTPS 协议访问到你的服务。
 
-使用：
+## 用户分析
 
-- OSS 可以用来存储图片、视频、文件等数据，方便数据集中收集与分发。
+[CF Web Analytics](https://developers.cloudflare.com/web-analytics/) 提供了开箱即用的网页监控服务，启用后会自动在页面注入 JS 脚本用来统计用户信息与网页流量。
 
-## CDN：阿里云 ESA
-
-[费用](https://help.aliyun.com/zh/edge-security-acceleration/esa/product-overview/billing-overview/)：
-
-- 免费版 ESA 拥有传统 CDN 的全部功能。
-- ESA 产生的流量和 HTTPs 请求全部免费，并支持自动订阅 SSL 证书。
-
-使用：
-
-- 配置安全规则。例如限流、IP 黑白名单等。
-- 配置转换规则。如果希望将 OSS 作为 Static Pages，由于其首页默认访问 `index.html`，我们需要重写一下 URL 访问规则让 ESA 在加载首页时默认加载 `index.html` 文件。
-
-
-## 日志与监控：阿里云 SLS
-
-[费用](https://www.aliyun.com/price/product#/sls/detail/sls)：
-
-- 存储：30 天免费。
-- 流量：0.4 ￥/GB。
-
-使用：
-
-- 各服务均可简单配置后将日志推送到 SLS。
-- 配置告警规则后可以及时干预服务。
-
-## 用户分析：Google Analytics
-
-费用：0。
-
-> [!note]
->
-> Google Analytics 需要科学上网才能配置，但是其服务支持国内服务。如果无法科学上网，可以考虑使用百度统计，但是其只能保存一年的访问数据。
-
-## 典型案例
-
-下面介绍几个使用上述云服务的典型案例，以部署为例：
-
-- 前端：私有 OSS + CDN。
-- 后端：ECS + Docker + Nginx。
-
-### 部署前端：OSS + ESA
-
-1. 购买一个 OSS 存储套餐，创建一个存储桶（默认私有），后续把数据传输到该桶即可。
-2. 设置 ESA 加速域名。
-3. 设置源站信息，此时可以选择私有 OSS 桶对应的域名。
-4. 进入域名解析，把自定义域名解析到阿里云提供的 ESA 加速域名上。
-5. 给这个域名配置一些规则即可。
-
-### 部署后端：ECS + Docker
-
-1. 在 ECS 上安装 Docker 和 Nginx。
-2. 部署相关 Docker 应用。
-3. 在 ECS 的安全组中放通入方向的 443 端口（不适用 HTTPs 服务则放通 80 端口）。
-4. 【可选】如果希望使用 HTTPs 服务，则申请一张 SSL 证书。
-5. 配置 Nginx 代理。
+其他选项还包括 Google Analytics、百度统计等，但都需要自己把监测脚本写到 Web 里。另外百度统计只能保存一年的信息，如果有条件使用 CF Web Analytics 和 Google Analytics 就不要考虑百度统计了。
