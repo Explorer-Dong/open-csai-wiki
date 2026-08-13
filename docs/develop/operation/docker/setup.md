@@ -3,11 +3,11 @@ title: 软件配置
 icon: octicons/gear-24
 ---
 
-## 安装 Docker
+## Docker 安装
 
 Docker 分 Docker Engine (Docker CE) 和 Docker Desktop 两种，前者为 CLI，支持 Linux 系统，后者为 GUI，支持 Windows、maxOS 和 Linux 系统。各平台的 Docker 安装方法详见 [Install Docker Engine](https://docs.docker.com/engine/install/)。
 
-### Windows 安装 Docker Desktop
+### Docker for Windows
 
 > [!note]
 >
@@ -34,6 +34,32 @@ Docker 分 Docker Engine (Docker CE) 和 Docker Desktop 两种，前者为 CLI�
 >
 > ![在 Settings >> Resources >> WSL integration 中勾选对应的 Linux 发行版](https://cdn.dwj601.cn/images/20260408113001728.png)
 
+### Docker for Ubuntu
+
+```bash
+# Add Docker's official GPG key
+sudo apt update
+sudo apt install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources
+sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
+Types: deb
+URIs: https://download.docker.com/linux/ubuntu
+Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
+Components: stable
+Architectures: $(dpkg --print-architecture)
+Signed-By: /etc/apt/keyrings/docker.asc
+EOF
+
+sudo apt update
+
+# 安装
+sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+
 ### 验证安装
 
 ```bash
@@ -42,21 +68,27 @@ docker version
 
 # 检查 docker compose
 docker compose version
+
+# 检查运行状态
+sudo systemctl status docker
+# 如果没有运行，启动 docker
+sudo systemctl start docker
+
+# 运行一个最简 docker 容器
+sudo docker run hello-world
 ```
 
-正常显示版本号就表示安装成功。
+## Docker 配置
 
-## 配置 Docker
+更多内容详见 [Docker Docs](https://docs.docker.com/) 官方文档。
 
-### 系统级配置
-
-常见配置：
+### 常见配置
 
 ```json
 {
   "registry-mirrors": [
     "https://docker.1panel.live",
-    "https://hub.rat.dev"
+    "https://docker.m.daocloud.io"
   ],
   "dns": ["8.8.8.8"],
   "max-concurrent-downloads": 10,
@@ -64,7 +96,9 @@ docker compose version
 }
 ```
 
-配置操作：
+其中比较重要的就是镜像源地址，最新可用的 Docker 镜像源参考这个 [民间仓库](https://github.com/dongyubin/DockerHub)。多配置几个镜像源的好处是：某些镜像源挂掉后，Docker 可以自动尝试其他镜像源，直到全部不可用，回退到官方镜像源。
+
+### 配置方法
 
 === "Docker Engine"
 
@@ -75,8 +109,8 @@ docker compose version
     # 2. 填入上述配置
     
     # 3. 重启 Docker
-    systemctl daemon-reload
-    systemctl restart docker
+    sudo systemctl daemon-reload
+    sudo systemctl restart docker
     ```
 
 === "Docker Desktop"
@@ -87,15 +121,9 @@ docker compose version
     4. 将上述配置填入输入框；
     5. 点击 "Apply & Restart" 应用配置。
 
-### 汉化 Docker Desktop
+## Docker 管理
 
-由于 Docker Desktop 没有中文翻译选项，很多按钮对于新手来说并不友好，[DockerDesktop-CN](https://github.com/asxez/DockerDesktop-CN) 解决了这个问题，按照文档替换文件后就可以得到下面的汉化效果：
-
-![Docker Desktop 汉化效果](https://cdn.dwj601.cn/images/20260310211340381.png)
-
-## 全局命令
-
-磁盘管理：
+### 磁盘管理
 
 ```bash
 # 清理未使用的镜像、容器、网络
@@ -104,6 +132,18 @@ docker system prune -a
 # 查看磁盘使用情况
 docker system df
 ```
+
+### 进程管理
+
+```bash
+docker stats
+```
+
+示例输出：
+
+![docker stats 示例输出](https://cdn.dwj601.cn/images/2026-0813-114438-c192364e.png)
+
+### 对象管理
 
 获取 Docker 对象（容器、镜像、数据卷、网络等）的详细信息：
 

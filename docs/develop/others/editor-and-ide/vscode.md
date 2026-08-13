@@ -30,11 +30,13 @@ VSCode 支持不同的配置级别：
 
 ## 离线安装插件
 
-进入 [VSCode 插件官网](https://marketplace.visualstudio.com/vscode) 下载插件安装包，然后本地安装：
+首先需要获取 VSIX 插件安装包，然后在本地执行安装：
 
 ```bash
 code --install-extension </path/to/xxx.vsix>
 ```
+
+插件安装包推荐通过 [官网](https://marketplace.visualstudio.com/vscode) 获取；也可以在插件列表选中并右键插件，选择下载 VSIX 即可获取。
 
 ## 代码跳转
 

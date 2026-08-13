@@ -161,11 +161,12 @@ run train.py use_fsdp  # You are running train.py with use_fsdp parameter.
 
 函数形参通过位置 `$1`、`$2` 的方式引用。
 
-### 完整脚本示例
+## 脚本示例
 
 ```bash
 #!/bin/bash
 
+# 在脚本运行的过程中一旦遇到错误，就直接中断执行
 set -e
 
 log() {
