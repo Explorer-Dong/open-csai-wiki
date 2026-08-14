@@ -5,7 +5,7 @@
 <p align="center">
   <a title="GitHub Stars" href="https://github.com/Explorer-Dong/open-csai-wiki/stargazers" target="_blank"><img alt="GitHub Stars" src="https://img.shields.io/github/stars/Explorer-Dong/open-csai-wiki?style=flat&label=GitHub%20Stars"></a>
   <a title="Python Version" href="https://python.org" target="_blank"><img src="https://img.shields.io/badge/Python-3.13+-aff" alt="Python Version"></a>
-  <a title="Zensical Version" href="https://github.com/zensical/zensical" target="_blank"><img src="https://img.shields.io/badge/Zensical-0.0.53+-gold" alt="Zensical Version"></a>
+  <a title="Zensical Version" href="https://github.com/zensical/zensical" target="_blank"><img src="https://img.shields.io/badge/Zensical-0.0.54+-gold" alt="Zensical Version"></a>
   <a title="Ask DeepWiki" href="https://deepwiki.com/Explorer-Dong/open-csai-wiki" target="_blank"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"></a>
   <a title="License" href="https://github.com/Explorer-Dong/open-csai-wiki/blob/main/LICENSE" target="_blank"><img src="https://img.shields.io/github/license/Explorer-Dong/open-csai-wiki.svg?style=flat&label=License" alt="License"></a>
 </p>
@@ -24,8 +24,8 @@
 
 - **基础知识**：人工智能、计算机、数学等基础知识。
 - **数据结构与算法**：数据结构、动态规划、图论等经典算法。
-- **软件开发**：前端、后端、运维等开发方法。
-- **大模型**：模型架构、模型训练、模型应用等前沿内容。
+- **软件开发**：前端、后端、运维等工程实践。
+- **大模型**：模型开发、模型训练、模型应用等研究内容。
 
 ## 参与贡献
 
