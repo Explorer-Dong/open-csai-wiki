@@ -6,57 +6,41 @@ title: 大模型专栏简介
 >
 > 我们塑造了工具，而后工具又塑造了我们。
 
-本专栏围绕大模型生态展开介绍，欢迎评论与补充🤗。
+本专栏从底层运行环境开始，依次介绍模型如何构建、如何提供服务，以及如何组成面向用户的应用。欢迎通过评论或贡献补充内容🤗。
 
 <div class="grid cards" markdown>
 
--   :lucide-server-cog:{ .lg .middle } **基础设施**
+-   :lucide-server-cog:{ .lg .middle } 基础设施
 
     ---
 
-    算力、存储、网络等大模型研发所需的硬件。
+    计算硬件、网络互联、存储、AI 软件栈、集群环境、模型与数据设施，以及基础设施安全。
 
     [:octicons-arrow-right-24: 开始阅读](./infrastructure/index.md)
 
--   :lucide-layers:{ .lg .middle } **模型架构**
+-   :lucide-graduation-cap:{ .lg .middle } 模型开发
 
     ---
 
-    Transformer、MoE、DiT 等网络结构。
+    模型架构、训练基础、训练阶段、分布式训练、训练框架、能力评测，以及对齐安全。
 
-    [:octicons-arrow-right-24: 开始阅读](./architecture/index.md)
+    [:octicons-arrow-right-24: 开始阅读](./development/index.md)
 
--   :lucide-graduation-cap:{ .lg .middle } **模型训练**
-
-    ---
-
-    数据管线、预训练、后训练等工程方法。
-
-    [:octicons-arrow-right-24: 开始阅读](./training/index.md)
-
--   :lucide-zap:{ .lg .middle } **模型部署**
+-   :lucide-zap:{ .lg .middle } 模型服务
 
     ---
 
-    推理服务、模型量化等高吞吐部署方法。
+    自回归推理、推理优化、模型压缩、分布式推理、服务化、性能评测与部署安全。
 
     [:octicons-arrow-right-24: 开始阅读](./serving/index.md)
 
--   :lucide-layout-grid:{ .lg .middle } **模型应用**
+-   :lucide-layout-grid:{ .lg .middle } 模型应用
 
     ---
 
-    产品形态、智能体等前沿应用。
+    模型 API、提示词与上下文工程、RAG、Agent、应用评测，以及安全与治理。
 
     [:octicons-arrow-right-24: 开始阅读](./application/index.md)
-
--   :lucide-shield-check:{ .lg .middle } **模型安全**
-
-    ---
-
-    伦理对齐、风险评测等安全内容。
-
-    [:octicons-arrow-right-24: 开始阅读](./safety/index.md)
 
 </div>
 
