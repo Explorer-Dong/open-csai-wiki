@@ -3,7 +3,7 @@ title: 文本生成（机器翻译）
 ---
 
 现代文本生成任务包括翻译、摘要、问答、对话等，而机器翻译 (Machine Translation
-, MT) 是最典型的序列到序列建模场景。本文以机器翻译为切入点，从传统统计方法过渡到神经网络方法，并系统介绍序列到序列 (Sequence to Sequence, Seq2Seq) 与注意力 (Attention) 机制，为后续理解 [Transformer](../../../llm/architecture/transformer.md) 奠定基础。
+, MT) 是最典型的序列到序列建模场景。本文以机器翻译为切入点，从传统统计方法过渡到神经网络方法，并系统介绍序列到序列 (Sequence to Sequence, Seq2Seq) 与注意力 (Attention) 机制，为后续理解 [Transformer](../../../llm/development/architecture/transformer.md) 奠定基础。
 
 ## 基本概念
 
@@ -143,4 +143,4 @@ Attention 的意义：
 
 Attention 提升了 RNN 的训练效率与表达能力，但 RNN 本身的串行结构仍然无法并行。
 
-完全并行化的 Transformer 由 Attention 推广而来，感兴趣的读者可移步 [Transformer](../../../llm/architecture/transformer.md) 作进一步阅读。
+完全并行化的 Transformer 由 Attention 推广而来，感兴趣的读者可移步 [Transformer](../../../llm/development/architecture/transformer.md) 作进一步阅读。
