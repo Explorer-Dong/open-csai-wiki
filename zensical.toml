@@ -676,3 +676,8 @@ close_expires_hours = 24
 text = "阿里云 · 轻量服务器 68 元/年"
 href = "https://go.dwj601.cn/r/aliyun"
 color = "orange"
+
+[[project.extra.ads.items]]
+text = "OpenBayes · 高性能算力租赁平台，包含 PRO 6000、5090、CPU 等集群，自带学术加速、永久存储空间"
+href = "https://go.dwj601.cn/r/openbayes"
+color = "#0073f8"
