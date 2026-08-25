@@ -69,4 +69,4 @@ print(pass_at_k(20, 12, 10))  # 1.0
 ## 相关主题
 
 - [Agentic Ability](./agentic-ability.md)
-- [Agentic RL](../training/stages/agentic-rl.md)
+- [强化学习](../training/stages/rl.md#agentic-rl)

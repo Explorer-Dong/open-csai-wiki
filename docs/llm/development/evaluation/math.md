@@ -61,4 +61,4 @@ $$\operatorname{pass@k} = 1 - \frac{\binom{n-c}{k}}{\binom{n}{k}}$$
 ## 相关主题
 
 - [推理](./reasoning.md)
-- [GRPO](../training/stages/grpo.md)
+- [强化学习](../training/stages/rl.md#grpo)

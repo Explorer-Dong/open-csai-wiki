@@ -74,4 +74,4 @@ def score(task, final_fs, trajectory):
 ## 相关主题
 
 - [Coding](./coding.md)
-- [Agentic RL](../training/stages/agentic-rl.md)
+- [强化学习](../training/stages/rl.md#agentic-rl)

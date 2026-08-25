@@ -37,8 +37,8 @@ icon: lucide/landmark
 | --- | --- | --- |
 | 建立基础概念 | 语言模型演化 -> [Transformer 模型](./transformer.md) -> [预训练](../training/stages/pre-training.md) | token、语言建模、注意力、训练目标 |
 | 理解现代 LLM 架构 | [Transformer 模型](./transformer.md) -> 高效架构 -> [MoE](./moe.md) | Decoder-only、KV Cache、GQA、MoE |
-| 理解能力来源 | [预训练](../training/stages/pre-training.md) -> [扩展定律](./scaling-law.md) -> [后训练](../training/stages/post-training.md) | 数据、算力、偏好优化、评测 |
-| 研究推理模型 | [后训练](../training/stages/post-training.md) -> [推理能力](./reasoning.md) -> [扩展定律](./scaling-law.md) | RLVR、GRPO、verifier、test-time scaling |
+| 理解能力来源 | [预训练](../training/stages/pre-training.md) -> [扩展定律](./scaling-law.md) -> [有监督微调](../training/stages/sft.md) | 数据、算力、监督适配、评测 |
+| 研究推理模型 | [强化学习](../training/stages/rl.md) -> [推理能力](./reasoning.md) -> [扩展定律](./scaling-law.md) | RLVR、GRPO、verifier、test-time scaling |
 | 研究多模态生成 | [多模态模型](./multimodal.md) -> [扩散模型](./diffusion.md) -> [Transformer 模型](./transformer.md) | 图文对齐、视觉 token、DiT、flow matching |
 | 准备视频多模态面试 | [多模态模型](./multimodal.md) -> 视频模型 -> [扩散模型](./diffusion.md) | 视频 token、时序建模、视频 VLM、视频生成、评测 |
 
@@ -101,10 +101,10 @@ flowchart TD
 | 表示层 | token、embedding、position | 如何把离散输入变成可计算表示 | 语言模型演化、高效架构 |
 | 架构层 | attention、FFN、normalization、MoE | 如何组织参数和计算路径 | [Transformer 模型](./transformer.md)、[MoE](./moe.md) |
 | 训练层 | pre-training、continued pre-training | 能力如何从数据和算力中形成 | [预训练](../training/stages/pre-training.md)、[扩展定律](./scaling-law.md) |
-| 对齐层 | SFT、RLHF、DPO、GRPO | 模型如何变得可用、可控、可交互 | [后训练](../training/stages/post-training.md) |
+| 对齐层 | SFT、RLHF、DPO、GRPO | 模型如何变得可用、可控、可交互 | [有监督微调](../training/stages/sft.md)、[强化学习](../training/stages/rl.md) |
 | 推理层 | decoding、verifier、test-time scaling | 如何在回答时分配计算预算 | [推理能力](./reasoning.md)、高效架构 |
 | 多模态层 | VLM、Diffusion、DiT | 如何理解和生成非文本模态 | [多模态模型](./multimodal.md)、[扩散模型](./diffusion.md) |
-| 评测层 | benchmark、human eval、contamination check | 如何判断能力是否真实可靠 | [预训练](../training/stages/pre-training.md)、[后训练](../training/stages/post-training.md) |
+| 评测层 | benchmark、human eval、contamination check | 如何判断能力是否真实可靠 | [预训练](../training/stages/pre-training.md)、[强化学习](../training/stages/rl.md) |
 
 这种分层能避免常见混淆。例如 Flash Attention 主要优化计算实现，不改变语言建模目标；DPO 改变后训练目标，不改变 Transformer 的基本结构；MoE 增加总参数量，但每个 token 激活的参数量未必同步增加。
 

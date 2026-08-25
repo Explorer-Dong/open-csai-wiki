@@ -50,5 +50,5 @@ def symmetric_int8_quantize(x):
 
 ## 相关主题
 
-- [QLoRA](../../development/training/stages/qlora.md)
+- [LoRA 与 QLoRA](../../development/training/base/lora.md)
 - [部署成本](../deployment/performance/cost.md)

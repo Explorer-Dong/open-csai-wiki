@@ -34,7 +34,7 @@ TRL 覆盖 SFT、DPO、PPO、GRPO 以及 KTO、ORPO 等常见后训练流程，�
 
 $$L_{\text{DPO}} = -\log\sigma\left(\beta\log\frac{\pi_\theta(y_w \mid x)}{\pi_{\text{ref}}(y_w \mid x)} - \beta\log\frac{\pi_\theta(y_l \mid x)}{\pi_{\text{ref}}(y_l \mid x)}\right)$$
 
-其中 $\beta$ 控制偏离参考模型 $\pi_{\text{ref}}$ 的强度，$y_w$、$y_l$ 分别是 chosen 与 rejected 回答，$\sigma$ 是 sigmoid 函数，公式与推导见 [DPO 论文](https://arxiv.org/abs/2305.18290)。PPO 的裁剪代理目标见 [PPO 主题](../stages/ppo.md)，GRPO 的组内相对优势见 [GRPO 主题](../stages/grpo.md)。
+其中 $\beta$ 控制偏离参考模型 $\pi_{\text{ref}}$ 的强度，$y_w$、$y_l$ 分别是 chosen 与 rejected 回答，$\sigma$ 是 sigmoid 函数，公式与推导见 [DPO 论文](https://arxiv.org/abs/2305.18290)。PPO 的裁剪代理目标与 GRPO 的组内相对优势见 [强化学习](../stages/rl.md)。
 
 但大规模训练仍需配合分布式与服务基础设施：在线算法（如 PPO、GRPO）需要高效的 rollout 服务，通常配合 vLLM 等推理引擎；超大规模训练则要考虑并行策略与集群调度。TRL 定位是后训练算法库，不是大规模预训练框架。选择时应明确目标：快速验证偏好优化思路用 TRL 很合适；一旦进入大规模在线强化学习，可能需要切换到 verl、SLIME 一类面向 RL 的混合执行框架。
 
@@ -46,5 +46,4 @@ SFT 只学习 chosen 回答，DPO 同时利用 chosen 与 rejected 的对比信�
 
 ## 相关主题
 
-- [DPO](../stages/dpo.md)
-- [PPO](../stages/ppo.md)
+- [强化学习](../stages/rl.md)

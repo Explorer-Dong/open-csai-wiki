@@ -327,22 +327,14 @@ nav = [
           "llm/development/training/base/learning-rate.md",
           "llm/development/training/base/batch.md",
           "llm/development/training/base/gradient-accumulation.md",
+          "llm/development/training/base/lora.md",
         ] },
         { "训练阶段" = [
           "llm/development/training/stages/index.md",
           "llm/development/training/stages/pre-training.md",
-          "llm/development/training/stages/post-training.md",
-          "llm/development/training/stages/continued-pre-training.md",
           "llm/development/training/stages/sft.md",
-          "llm/development/training/stages/opd.md",
-          "llm/development/training/stages/lora.md",
-          "llm/development/training/stages/qlora.md",
-          "llm/development/training/stages/preference-optimization.md",
-          "llm/development/training/stages/rlhf.md",
-          "llm/development/training/stages/dpo.md",
-          "llm/development/training/stages/ppo.md",
-          "llm/development/training/stages/grpo.md",
-          "llm/development/training/stages/agentic-rl.md",
+          "llm/development/training/stages/rl.md",
+          "llm/development/training/stages/distillation.md",
         ] },
         { "分布式训练" = [
           "llm/development/training/distributed/index.md",
@@ -425,7 +417,6 @@ nav = [
       { "模型压缩" = [
         "llm/serving/compression/index.md",
         "llm/serving/compression/quantization.md",
-        "llm/serving/compression/distillation.md",
         "llm/serving/compression/pruning.md",
       ] },
       { "模型部署" = [

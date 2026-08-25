@@ -59,5 +59,5 @@ $$
 
 ## 相关主题
 
-- [偏好优化](../training/stages/preference-optimization.md)
+- [强化学习](../training/stages/rl.md)
 - [应用安全与治理](../../application/security/index.md)

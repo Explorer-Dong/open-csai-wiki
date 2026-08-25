@@ -16,13 +16,11 @@ icon: lucide/graduation-cap
 | 阶段 | 目标 | 关键检查 |
 | :-- | :-- | :-- |
 | [预训练](./stages/pre-training.md) | 从大规模语料学习通用语言和知识 | 数据配比、token 数、训练稳定性、验证损失 |
-| [Continued Pre-training](./stages/continued-pre-training.md) | 适配领域或语言分布 | 新领域能力与通用能力是否平衡 |
-| [SFT](./stages/sft.md) | 学习指令、格式和目标行为 | 示例质量、格式遵循、灾难性遗忘 |
-| [偏好优化](./stages/preference-optimization.md) | 用偏好信号改善回答质量和行为 | 偏好数据一致性、过拟合和拒答率 |
-| [RLHF](./stages/rlhf.md)、[DPO](./stages/dpo.md)、[GRPO](./stages/grpo.md) | 使用不同的偏好或可验证奖励优化策略 | 奖励可靠性、策略漂移、评测泄漏 |
-| [Agentic RL](./stages/agentic-rl.md) | 用多步工具轨迹训练任务执行能力 | 轨迹质量、工具权限、终止条件和成本 |
+| [有监督微调](./stages/sft.md) | 学习指令、格式和目标行为 | 模板、loss mask、示例质量、灾难性遗忘 |
+| [强化学习](./stages/rl.md) | 用偏好或可验证奖励优化回答与 Agent 轨迹 | 奖励可靠性、策略漂移、评测泄漏 |
+| [蒸馏](./stages/distillation.md) | 迁移教师分布、序列或多领域专家能力 | 前缀来源、KL 方向、教师路由与部署收益 |
 
-LoRA、QLoRA、OPD 等方法可以和上述阶段组合，不能简单当成彼此互斥的训练阶段。选择方法时要说明它改变的是可训练参数、数据来源、奖励信号还是优化目标。
+[LoRA 与 QLoRA](./base/lora.md) 改变可训练参数范围，可以用于 SFT、偏好优化或蒸馏；它们不是独立的数据阶段。选择训练方法时要说明它改变的是参数集合、数据来源、教师信号、奖励还是优化目标。
 
 ## 训练规模化
 

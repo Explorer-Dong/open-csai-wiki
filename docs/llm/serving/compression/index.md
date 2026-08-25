@@ -6,7 +6,6 @@ icon: lucide/shrink
 ## 独立专题
 
 - [Quantization](./quantization.md)
-- [Distillation](./distillation.md)
 - [Pruning](./pruning.md)
 
 模型压缩通过降低数值精度、迁移能力或移除冗余参数，减少显存、计算和部署成本。
@@ -29,7 +28,7 @@ $$
 
 ## 蒸馏
 
-知识蒸馏 (Knowledge Distillation) 让较小的 Student 模型学习 Teacher 的输出分布、生成轨迹或中间表示。它可以针对特定任务压缩能力，但 Student 不会自动继承 Teacher 在所有分布外任务上的表现。
+知识蒸馏 (Knowledge Distillation) 让较小的 Student 模型学习 Teacher 的输出分布、生成轨迹或中间表示。它可以针对特定任务压缩能力，但 Student 不会自动继承 Teacher 在所有分布外任务上的表现。蒸馏既是压缩方法，也已发展为后训练中的能力迁移与多教师整合方法，完整原理见 [蒸馏](../../development/training/stages/distillation.md)。
 
 ## 剪枝
 

@@ -1,46 +1,53 @@
 ---
-title: 模型训练
+title: 训练阶段
 ---
 
-模型训练把数据、模型结构和优化算法组合为可复现的参数更新过程。训练前应先理解 [模型架构](../../architecture/index.md) 与 [PyTorch](../frameworks/pytorch.md)，再按预训练、后训练和分布式扩展的顺序学习。
+模型训练阶段按监督信号的来源组织为四篇文章：预训练从原始语料构造自监督目标；有监督微调学习目标回答；强化学习从当前策略的结果奖励更新；蒸馏则迁移教师分布、序列或多专家能力。
 
 ## 快速开始
 
-以 Decoder-only 语言模型为例，最小训练闭环如下：
+建议按依赖顺序阅读：
 
-```text
-准备数据 -> Tokenize -> 前向计算 Loss -> Backpropagation -> Optimizer Step -> 评测与保存
+1. [预训练](./pre-training.md)：理解 next-token loss、数据配方和持续预训练；
+2. [有监督微调](./sft.md)：理解 Chat Template、response mask 与监督适配；
+3. [强化学习](./rl.md)：理解偏好、奖励、PPO、GRPO、DAPO、GSPO 与 Agentic RL；
+4. [蒸馏](./distillation.md)：理解 Knowledge Distillation、Sequence-level KD、OPD 与 MOPD。
+
+```mermaid
+flowchart LR
+    A[通用语料] --> B[预训练]
+    B --> C[有监督微调]
+    C --> D[强化学习]
+    C --> E[蒸馏学生]
+    D --> F[领域教师]
+    F --> E
 ```
 
-Loss 衡量预测误差，反向传播计算梯度，Optimizer 根据梯度更新参数。Learning Rate 控制单步更新幅度，Batch 与 Gradient Accumulation 共同决定一次参数更新覆盖的样本量。先通过 [训练基础](../base/index.md) 在单卡小数据集上验证闭环，再扩展到多卡和多机环境。
+这不是每个模型都必须完整执行的固定流水线。例如小模型可以直接蒸馏已有教师，普通助手也不一定需要在线 RL；但每次训练都应明确数据由谁产生、监督信号是什么、哪些 token 参与 loss。
 
-## 训练阶段
+## 四类监督信号
 
-| 阶段 | 目标 | 常见方法 |
-| :-- | :-- | :-- |
-| 预训练 | 从大规模语料学习通用表示与生成能力 | Pre-training、Continued Pre-training |
-| 监督适配 | 学习任务格式、领域知识和指令遵循 | SFT、LoRA、QLoRA |
-| 蒸馏与偏好 | 迁移教师分布或比较回答优劣 | OPD、Preference Optimization、DPO |
-| 强化学习 | 通过奖励提升推理和工具使用能力 | RLHF、PPO、GRPO、Agentic RL |
+| 文章 | 训练数据或状态 | 直接监督信号 | 代表方法 |
+| :-- | :-- | :-- | :-- |
+| [预训练](./pre-training.md) | 大规模连续语料 | 真实 token 或被破坏文本 | CLM、MLM、Continued Pre-training |
+| [有监督微调](./sft.md) | 指令与目标回答 | assistant / tool call token | Full SFT、LoRA、QLoRA |
+| [强化学习](./rl.md) | 当前策略回答或环境轨迹 | 偏好奖励、验证器、任务回报 | RLHF、DPO、PPO、GRPO、DAPO、GSPO |
+| [蒸馏](./distillation.md) | 固定数据、教师序列或学生 rollout | 教师 logits、序列或表示 | KD、SeqKD、OPD、MOPD |
 
-具体原理与案例见 [预训练](./pre-training.md) 和 [后训练](./post-training.md)。
+LoRA 与 QLoRA 改变的是可训练参数和基座权重表示，见 [LoRA 与 QLoRA](../base/lora.md)；它们可以用于 SFT、偏好优化或蒸馏，不单独构成监督阶段。DPO 被收录在强化学习文章中用于建立偏好优化全貌，但标准 DPO 在固定偏好数据上训练，不依赖当前策略 rollout。
 
-## 分布式训练
+## Loss 阅读方法
 
-数据并行将不同样本分给多个设备，DDP 在反向传播期间同步梯度；ZeRO 和 FSDP 进一步切分参数、梯度和优化器状态。单个模型层无法装入一张卡时，可使用 Tensor Parallel；层数较多时可使用 Pipeline Parallel；MoE 模型还会使用 Expert Parallel。实际大规模训练通常组合多种并行方式，具体见 [分布式训练](../distributed/index.md)。
+四篇文章统一从张量形状解释 loss。阅读任何训练目标时，先回答：
 
-## 训练框架
+1. 模型输出 logits 是 $[B,S,V]$、$[B,G,L,V]$ 还是其他形状；
+2. labels、reward、advantage 与 mask 如何广播到 token；
+3. 先沿词表、长度、group 还是 batch 维归约；
+4. 分母是样本数、有效 token 数还是每条序列长度；
+5. 最终是否得到单个标量并对正确参数反向传播。
 
-- [PyTorch](../frameworks/pytorch.md) 提供张量、自动微分、优化器和分布式原语；
-- DeepSpeed 与 FSDP 侧重显存切分和分布式训练；
-- Megatron-LM 侧重大规模 Transformer 并行；
-- LLaMA-Factory 侧重统一微调工作流；
-- TRL、verl 与 slime 侧重偏好优化、在线 rollout 和强化学习训练。
+公式相似不代表算法相同。SFT 与 SeqKD 都能表现为交叉熵，但目标回答来源不同；GRPO 与 DAPO 都使用组优势，但 loss reduction 与裁剪策略不同；OPD 与 RL 都需要学生 rollout，但一个匹配教师分布，另一个根据奖励与信用分配更新。
 
-框架定位与选型见 [训练框架](../frameworks/index.md)，环境配置和容器示例见 [工程实践](../frameworks/index.md)。
+## 评测原则
 
-## 评测与安全
-
-训练过程中应分别评测通用知识、STEM、数学、代码、推理、长上下文、多模态和 Agent 能力，并保留训练前基线，识别灾难性遗忘。数据进入训练管线前还需检查隐私、版权、投毒和后门风险；对齐完成后应独立进行安全评测，避免只用训练奖励证明模型安全。具体流程见 [模型能力评测](../../evaluation/index.md) 与 [训练和对齐安全](../../security/index.md)。
-
-进一步阅读：[大模型训练入门手册](https://docs.volcengine.com/docs/82379/2545605?lang=zh)。
+每个阶段都要保留训练前基线和独立验证集。预训练重点检查语言建模与能力覆盖，SFT 检查格式和指令遵循，RL 检查奖励真实性与策略漂移，蒸馏检查教师能力保留与实际成本收益。loss 下降只证明当前优化目标被拟合，不能单独证明模型更正确、更安全或更快。

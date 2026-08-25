@@ -18,7 +18,7 @@ GRPO 是 veRL 中最常用的在线算法之一，它去掉 critic、对同一 p
 
 $$L_{\text{GRPO}} = \frac{1}{G}\sum_{i=1}^{G}\left[\min\left(\rho_i \hat{A}_i,\ \operatorname{clip}\left(\rho_i, 1-\epsilon, 1+\epsilon\right)\hat{A}_i\right)\right] - \beta\,\mathbb{D}_{\text{KL}}\left[\pi_\theta \,\|\, \pi_{\text{ref}}\right]$$
 
-其中 $G$ 是每个 prompt 采样的回答数，$\rho_i = \pi_\theta(o_i \mid q) / \pi_{\text{old}}(o_i \mid q)$，组内标准化优势 $\hat{A}_i = (r_i - \bar{r}) / \sigma_r$，$\beta$ 是 KL 惩罚系数。相比 PPO，它不再维护 critic 价值网络，省去了一半模型状态与显存，这是它能支撑更大规模 RL 训练的关键，公式细节见 [GRPO 主题](../stages/grpo.md)，原始定义见 [DeepSeekMath 论文](https://arxiv.org/abs/2402.03300)。
+其中 $G$ 是每个 prompt 采样的回答数，$\rho_i = \pi_\theta(o_i \mid q) / \pi_{\text{old}}(o_i \mid q)$，组内标准化优势 $\hat{A}_i = (r_i - \bar{r}) / \sigma_r$，$\beta$ 是 KL 惩罚系数。相比 PPO，它不再维护 critic 价值网络，省去了一半模型状态与显存，这是它能支撑更大规模 RL 训练的关键，公式细节见 [强化学习](../stages/rl.md#grpo)，原始定义见 [DeepSeekMath 论文](https://arxiv.org/abs/2402.03300)。
 
 必须监控奖励均值与方差、KL 散度、成功率和失败轨迹的分布。奖励上升但 KL 偏离过大可能意味着策略在奖励函数上过拟合；成功率不升反降通常说明奖励信号或数据有问题。失败轨迹与成功轨迹同样需要被记录和分析。调度与权重同步的延迟会影响有效样本率：rollout 使用的策略版本与训练端最新权重的滞后，在线算法下需要纳入评估，必要时调整同步频率或采用异步策略。
 
@@ -30,5 +30,4 @@ $$L_{\text{GRPO}} = \frac{1}{G}\sum_{i=1}^{G}\left[\min\left(\rho_i \hat{A}_i,\ 
 
 ## 相关主题
 
-- [RLHF](../stages/rlhf.md)
-- [GRPO](../stages/grpo.md)
+- [强化学习](../stages/rl.md)

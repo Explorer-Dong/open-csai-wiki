@@ -38,5 +38,5 @@ $$L^{\text{CLIP}}(\theta) = \mathbb{E}_t\left[\min\left(\rho_t(\theta) A_t,\ \op
 
 ## 相关主题
 
-- [Agentic RL](../stages/agentic-rl.md)
+- [强化学习](../stages/rl.md#agentic-rl)
 - [Megatron-LM](./megatron-lm.md)

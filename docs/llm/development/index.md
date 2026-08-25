@@ -10,7 +10,7 @@ title: 模型开发
 
 1. 阅读 [模型架构](./architecture/index.md)，理解 Tokenizer、Embedding、Transformer、Attention、位置编码与 Decoder-only 等基础结构；
 2. 阅读 [训练基础](./training/base/index.md)，掌握损失函数、反向传播、优化器、学习率、Batch 和梯度累积；
-3. 阅读 [预训练](./training/stages/pre-training.md) 和 [后训练](./training/stages/post-training.md)，理解模型能力如何形成并完成对齐；
+3. 阅读 [预训练](./training/stages/pre-training.md)、[有监督微调](./training/stages/sft.md)、[强化学习](./training/stages/rl.md) 和 [蒸馏](./training/stages/distillation.md)，理解模型能力如何形成、对齐与迁移；
 4. 根据规模进入 [分布式训练](./training/distributed/index.md)、[训练框架](./training/frameworks/index.md)、[模型能力评测](./evaluation/index.md) 和 [安全问题](./security/index.md)。
 
 ## 内容地图
@@ -19,7 +19,7 @@ title: 模型开发
 | :-- | :-- | :-- |
 | 模型架构 | Tokenizer、Embedding、Transformer、Attention、位置编码、Decoder-only、Encoder、MoE、长上下文、多模态、Diffusion | [模型架构](./architecture/index.md)、[Transformer 模型](./architecture/transformer.md)、[MoE](./architecture/moe.md)、[多模态模型](./architecture/multimodal.md)、[扩散模型](./architecture/diffusion.md) |
 | 训练基础 | 损失函数、反向传播、优化器、学习率、批处理与梯度累积 | [训练基础](./training/base/index.md) |
-| 训练阶段 | 预训练、持续预训练、SFT、OPD、LoRA、QLoRA、偏好优化、RLHF、DPO、PPO、GRPO 与 Agentic RL | [预训练](./training/stages/pre-training.md)、[后训练](./training/stages/post-training.md) |
+| 训练阶段 | 预训练、持续预训练、SFT、偏好优化、PPO、GRPO、DAPO、GSPO、OPD 与 MOPD | [预训练](./training/stages/pre-training.md)、[有监督微调](./training/stages/sft.md)、[强化学习](./training/stages/rl.md)、[蒸馏](./training/stages/distillation.md) |
 | 分布式训练 | DDP、ZeRO、FSDP、张量并行、流水线并行、专家并行与混合并行 | [分布式训练](./training/distributed/index.md) |
 | 训练框架 | PyTorch、DeepSpeed、Megatron-LM、LLaMA-Factory、TRL、verl 与 slime | [训练框架](./training/frameworks/index.md)、[PyTorch](./training/frameworks/pytorch.md) |
 | 模型能力评测 | 通用知识、STEM、数学、代码、推理、长上下文、多模态与 Agent 能力 | [模型能力评测](./evaluation/index.md) |

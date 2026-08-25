@@ -53,5 +53,5 @@ dataset: my_domain_sft
 
 ## 相关主题
 
-- [SFT](../stages/sft.md)
-- [QLoRA](../stages/qlora.md)
+- [有监督微调](../stages/sft.md)
+- [LoRA 与 QLoRA](../base/lora.md)
