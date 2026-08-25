@@ -19,7 +19,7 @@ DeepSpeed 是微软开源的深度学习训练优化框架，提供 ZeRO 冗余�
 }
 ```
 
-上面的 `train_batch_size` 是全局 batch，`gradient_accumulation_steps` 是梯度累积步数，二者与数据并行 GPU 数共同决定每卡 micro batch，换算关系见 [Batch](../base/batch.md)。用下列命令启动即可让 DeepSpeed 接管优化器、调度与混合精度：
+上面的 `train_batch_size` 是全局 batch，`gradient_accumulation_steps` 是梯度累积步数，二者与数据并行 GPU 数共同决定每卡 micro batch，换算关系见 [深度学习](../../../../base/ai/deep-learning.md#batch-与梯度累积)。用下列命令启动即可让 DeepSpeed 接管优化器、调度与混合精度：
 
 ```bash
 deepspeed --num_gpus=1 train.py --deepspeed ds_config.json

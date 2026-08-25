@@ -30,9 +30,7 @@ nav = [
         "base/ai/python/visual-lib.md",
         "base/ai/python/progress-bar-lib.md",
       ] },
-      { "数字图像处理" = [
-        "base/ai/digital-image-processing/index.md",
-      ] },
+      "base/ai/digital-image-processing.md",
       { "机器学习" = [
         "base/ai/machine-learning/index.md",
         "base/ai/machine-learning/data-processing.md",
@@ -54,16 +52,8 @@ nav = [
         ] },
         "base/ai/machine-learning/evaluation.md",
       ] },
-      { "深度学习" = [
-        "base/ai/deep-learning/index.md",
-        "base/ai/deep-learning/full-connect-neural-network.md",
-        "base/ai/deep-learning/convolutional-neural-network.md",
-        "base/ai/deep-learning/recurrent-neural-network.md",
-        "base/ai/deep-learning/network-enhancement.md",
-      ] },
-      { "强化学习" = [
-        "base/ai/reinforcement-learning/index.md",
-      ] },
+      "base/ai/deep-learning.md",
+      "base/ai/reinforcement-learning.md",
       { "语音信号处理" = [
         "base/ai/speech-signal-processing/index.md",
         "base/ai/speech-signal-processing/audio-foundations.md",
@@ -325,16 +315,6 @@ nav = [
       ] },
       { "模型训练" = [
         "llm/development/training/index.md",
-        { "训练基础" = [
-          "llm/development/training/base/index.md",
-          "llm/development/training/base/loss.md",
-          "llm/development/training/base/backpropagation.md",
-          "llm/development/training/base/optimizer.md",
-          "llm/development/training/base/learning-rate.md",
-          "llm/development/training/base/batch.md",
-          "llm/development/training/base/gradient-accumulation.md",
-          "llm/development/training/base/lora.md",
-        ] },
         { "训练阶段" = [
           "llm/development/training/stages/index.md",
           "llm/development/training/stages/pre-training.md",
@@ -362,6 +342,7 @@ nav = [
           "llm/development/training/frameworks/slime.md",
           "llm/development/training/frameworks/trl.md",
         ] },
+        "llm/development/training/peft.md",
       ] },
       { "模型评测" = [
         "llm/development/evaluation/index.md",

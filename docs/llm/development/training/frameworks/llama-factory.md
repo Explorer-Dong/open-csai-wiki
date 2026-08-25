@@ -54,4 +54,4 @@ dataset: my_domain_sft
 ## 相关主题
 
 - [有监督微调](../stages/sft.md)
-- [LoRA 与 QLoRA](../base/lora.md)
+- [参数高效微调](../peft.md)

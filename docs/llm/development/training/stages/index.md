@@ -34,7 +34,7 @@ flowchart LR
 | [强化学习](./rl.md) | 当前策略回答或环境轨迹 | 偏好奖励、验证器、任务回报 | RLHF、DPO、PPO、GRPO、DAPO、GSPO |
 | [蒸馏](./distillation.md) | 固定数据、教师序列或学生 rollout | 教师 logits、序列或表示 | KD、SeqKD、OPD、MOPD |
 
-LoRA 与 QLoRA 改变的是可训练参数和基座权重表示，见 [LoRA 与 QLoRA](../base/lora.md)；它们可以用于 SFT、偏好优化或蒸馏，不单独构成监督阶段。DPO 被收录在强化学习文章中用于建立偏好优化全貌，但标准 DPO 在固定偏好数据上训练，不依赖当前策略 rollout。
+LoRA 与 QLoRA 改变的是可训练参数和基座权重表示，见 [参数高效微调](../peft.md)；它们可以用于 SFT、偏好优化或蒸馏，不单独构成监督阶段。DPO 被收录在强化学习文章中用于建立偏好优化全貌，但标准 DPO 在固定偏好数据上训练，不依赖当前策略 rollout。
 
 ## Loss 阅读方法
 

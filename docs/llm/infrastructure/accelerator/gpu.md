@@ -263,4 +263,4 @@ Transformer 的投影层主要计算 $XW_Q$、$XW_K$、$XW_V$ 和 FFN 矩阵。�
 - 小 Batch Decode 的首要瓶颈常是显存带宽，而非矩阵算力；
 - 禁用确定性算法或改变 Kernel 可能影响数值复现。
 
-底层线程与数据复用见 [GPU 微架构](./index.md#gpu-微架构)，库接口见 [cuBLAS / cuDNN](../software/index.md)，数值训练见 [训练基础](../../development/training/base/index.md)。
+底层线程与数据复用见 [GPU 微架构](./index.md#gpu-微架构)，库接口见 [cuBLAS / cuDNN](../software/index.md)，数值训练见 [深度学习](../../../base/ai/deep-learning.md#全连接神经网络)。

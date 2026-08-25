@@ -1,5 +1,5 @@
 ---
-title: LoRA
+title: 参数高效微调
 ---
 
 低秩适配 (Low-Rank Adaptation, LoRA) 是一种参数高效微调 (Parameter-Efficient Fine-Tuning, PEFT) 方法。它不改变预训练、监督微调或偏好优化的训练目标，而是改变线性层的参数化方式：冻结基座权重，只学习低秩增量。[LoRA 论文](https://arxiv.org/abs/2106.09685) 的核心假设是，下游任务所需的权重更新通常具有较低的内在秩，因此不必为每个任务更新并保存一份完整模型。
@@ -175,7 +175,7 @@ model = get_peft_model(
 )
 ```
 
-QLoRA 会引入量化误差，并依赖 GPU、量化内核和软件版本。若质量明显低于全精度 LoRA，应先核对计算 dtype、目标模块、关键层是否被意外量化以及学习率，而不是假设 4-bit 配置在所有环境中等价。量化的通用原理见 [模型量化](../../../serving/compression/quantization.md)。
+QLoRA 会引入量化误差，并依赖 GPU、量化内核和软件版本。若质量明显低于全精度 LoRA，应先核对计算 dtype、目标模块、关键层是否被意外量化以及学习率，而不是假设 4-bit 配置在所有环境中等价。量化的通用原理见 [模型量化](../../serving/compression/quantization.md)。
 
 ## 保存与部署
 

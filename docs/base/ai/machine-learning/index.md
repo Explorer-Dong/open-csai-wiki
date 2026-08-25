@@ -10,7 +10,7 @@ icon: material/chart-line
 - 教材：周志华老师的 [西瓜书](https://github.com/jingyuexing/Ebook/blob/master/Machine_Learning/机器学习_周志华.pdf)（配套的公式详解 [南瓜书](https://github.com/datawhalechina/pumpkin-book)），邱锡鹏老师的 [神经网络与深度学习](https://nndl.github.io/)。
 - 代码：[mlxtend](https://rasbt.github.io/mlxtend/)、[scikit-learn](https://scikit-learn.org/stable/api/index.html)、[scikit-learn 中文](https://scikit-learn.org.cn/)。
 
-机器学习是一种通过学习数据规律，实现预测任务的研究范式。由于机器学习领域十分宏大，衍生出的子分支也极具研究价值，考虑到文章定位以及篇幅问题，本文仅仅针对传统机器学习展开。[深度学习](../deep-learning/index.md)、[强化学习](../reinforcement-learning/index.md) 等子领域不在本文的讨论范围内。
+机器学习是一种通过学习数据规律，实现预测任务的研究范式。由于机器学习领域十分宏大，衍生出的子分支也极具研究价值，考虑到文章定位以及篇幅问题，本文仅仅针对传统机器学习展开。[深度学习](../deep-learning.md)、[强化学习](../reinforcement-learning.md) 等子领域不在本文的讨论范围内。
 
 机器学习的常见术语：
 

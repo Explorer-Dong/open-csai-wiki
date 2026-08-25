@@ -30,7 +30,7 @@ title: 文本分类
 
 ### 全连接神经网络
 
-Chen & Manning (2014) [^fnn-dp] 提出使用两层 [FNN](../deep-learning/full-connect-neural-network.md) 网络直接预测转移动作。模型输入包括当前状态下的若干词向量、词性标签与依存标签，输出为转移动作类别。其关键在于利用词向量与网络结构自动学习紧凑特征，以减少人工设计成本，提高解析速度和精度。
+Chen & Manning (2014) [^fnn-dp] 提出使用两层 [全连接神经网络](../deep-learning.md#全连接神经网络) 中的 MLP 直接预测转移动作。模型输入包括当前状态下的若干词向量、词性标签与依存标签，输出为转移动作类别。其关键在于利用词向量与网络结构自动学习紧凑特征，以减少人工设计成本，提高解析速度和精度。
 
 [^fnn-dp]: [A Fast and Accurate Dependency Parser using Neural Networks | Danqi Chen - (aclanthology.org)](https://aclanthology.org/D14-1082)
 
@@ -52,7 +52,7 @@ Chen & Manning (2014) [^fnn-dp] 提出使用两层 [FNN](../deep-learning/full-c
 
 ### 循环神经网络
 
-[RNN](../deep-learning/recurrent-neural-network.md) 尤其是长短时记忆 (Long Short-term Memory, LSTM) 模型能够捕获序列的长依赖结构，在命名实体识别中表现良好。典型流程包括：
+[循环神经网络](../deep-learning.md#循环神经网络) 中的 RNN，尤其是长短时记忆 (Long Short-Term Memory, LSTM) 模型能够捕获序列的长依赖结构，在命名实体识别中表现良好。典型流程包括：
 
 1. 将 token 映射为词向量；
 2. 使用双向 LSTM 提取前后文信息；
@@ -74,7 +74,7 @@ Chen & Manning (2014) [^fnn-dp] 提出使用两层 [FNN](../deep-learning/full-c
 
 ### 卷积神经网络
 
-[CNN](../deep-learning/convolutional-neural-network.md) 通过局部卷积核抽取 n‑gram 层级的局部特征，可有效识别关键情感短语。典型流程如下：
+[卷积神经网络](../deep-learning.md#卷积神经网络) 通过局部卷积核抽取 n‑gram 层级的局部特征，可有效识别关键情感短语。典型流程如下：
 
 1. 将文本映射为词向量矩阵；
 2. 使用多尺寸卷积核提取不同尺度的局部特征；
