@@ -1,6 +1,5 @@
 ---
 title: 数字逻辑电路
-status: todo
 icon: octicons/file-binary-16
 ---
 

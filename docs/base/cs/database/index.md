@@ -1,6 +1,5 @@
 ---
 title: 数据库
-status: todo
 icon: material/database
 ---
 

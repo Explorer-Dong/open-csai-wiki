@@ -66,6 +66,12 @@ nav = [
       ] },
       { "语音信号处理" = [
         "base/ai/speech-signal-processing/index.md",
+        "base/ai/speech-signal-processing/audio-foundations.md",
+        "base/ai/speech-signal-processing/speech-representation.md",
+        "base/ai/speech-signal-processing/speech-recognition.md",
+        "base/ai/speech-signal-processing/speech-generation.md",
+        "base/ai/speech-signal-processing/speech-understanding.md",
+        "base/ai/speech-signal-processing/speech-language-model.md",
       ] },
       { "自然语言处理" = [
         "base/ai/natural-language-processing/index.md",
