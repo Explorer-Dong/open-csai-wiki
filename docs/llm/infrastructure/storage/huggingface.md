@@ -4,18 +4,7 @@ title: Hugging Face
 
 本文介绍 [Hugging Face](https://huggingface.co/) 的一些概念与用法。
 
-## 快速开始
-
-安装 `hf` 后先登录，再固定 revision 下载到明确目录：
-
-```bash
-hf auth login
-hf download <model_name> --revision <commit> --local-dir ./model
-```
-
-下载前检查许可证、仓库所有者、权重格式与所需远程代码；完成后保存 commit 与文件哈希。公开模型不一定允许所有商业用途，也不代表其中的自定义代码可信。
-
-## HF 的定位
+## 基本概念
 
 Hugging Face (HF) 是一个类似于 GitHub 的在线存储库，其主要提供以下三种服务：
 
@@ -25,7 +14,7 @@ Hugging Face (HF) 是一个类似于 GitHub 的在线存储库，其主要提供
 
 本质上就是一个 Large File Storage (LFS)。
 
-## HF CLI
+## HF CLI 常见用法
 
 既然 HF 主要做的是存储服务，那么就和 Git 一样好理解了。HF 官方开发了一个 CLI 名为 `hf`，主要用来做上传、下载和鉴权等工作。虽然很多时候可以用 Git LFS、Python SDK 来完成一些操作，但我还是更喜欢用 CLI，因为所有的一切都是可控的。完整内容详见 [hf cli docs](https://huggingface.co/docs/huggingface_hub/en/guides/cli)，下面只罗列一些常用命令。
 
@@ -49,13 +38,21 @@ Hugging Face (HF) 是一个类似于 GitHub 的在线存储库，其主要提供
     powershell -ExecutionPolicy ByPass -c "irm https://hf.co/cli/install.ps1 | iex"
     ```
 
-基于 pip 安装：
+从 PyPI 安装：
 
-```bash
-pip install huggingface_hub
-```
+=== "uv"
 
-### 身份鉴权
+    ```bash
+    uv add huggingface_hub
+    ```
+
+=== "pip"
+
+    ```bash
+    pip install huggingface_hub
+    ```
+
+### 鉴权 `hf auth`
 
 HF 上大多数 Model 和 Dataset 可以直接下载，但有些敏感内容需要鉴权才能下载，有时如果不鉴权还可能被限速。我们可以借助 `hf` 进行鉴权：
 
@@ -71,7 +68,7 @@ hf auth login
 
 之后输入刚才创建的 token 即可正常下载模型。
 
-### 下载
+### 下载 `hf download`
 
 下载 Model：
 
@@ -130,6 +127,14 @@ hf download Wan-AI/Wan2.1-T2V-1.3B --exclude "*.pth"
 
 # 也可以通过 --local-dir 参数指定每次下载的路径
 hf download <anything> --local-dir <path/to/download>
+```
+
+### 上传 `hf upload`
+
+首先在 hf 网页中创建仓库，例如新建一个 model 库，然后在机器上 [登录 hf](#鉴权-hf-auth)，最后上传对应的权重：
+
+```bash
+hf upload <user>/<repo> </path/to/model/weights>
 ```
 
 ## 网络问题
