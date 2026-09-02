@@ -572,11 +572,9 @@ toggle.name = "切换到自动模式"
 # Plugin
 # ==============================
 
-[[project.plugins]]
+[project.plugins."material/meta"]
 [project.plugins.search]
 lang = "zh"
-
-[[project.plugins]]
 [project.plugins.glightbox]
 auto_caption = true
 
@@ -621,6 +619,9 @@ custom_checkbox = true
 # ==============================
 # Others
 # ==============================
+
+[project.extra.tags]
+default = "lucide/hash"
 
 [project.extra.analytics]
 provider = "google"
