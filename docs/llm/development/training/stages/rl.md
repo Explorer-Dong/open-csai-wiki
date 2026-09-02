@@ -1,14 +1,14 @@
 ---
-title: 强化学习
+title: RL
 ---
 
 大语言模型强化学习 (Reinforcement Learning, RL) 让当前策略生成回答或与环境交互，再根据奖励更新参数。它弥补 [有监督微调](./sft.md) 只能模仿既有答案的局限：当目标是「答案是否正确」「回答 A 是否优于回答 B」或「多步工具任务是否完成」时，奖励可以直接表达结果质量，并通过信用分配改变产生结果的 token 与动作概率。
 
 本篇把偏好优化、RLHF、DPO、PPO、GRPO、DAPO、GSPO、可验证奖励和 Agentic RL 放在同一套记号下。需要先明确：RLHF 描述反馈来源，RLVR 描述奖励性质，PPO、GRPO、DAPO 与 GSPO 描述策略更新方法；DPO 使用固定偏好数据直接优化，通常不属于在线策略梯度 RL。
 
-## 快速开始
+## 训练循环与符号约定
 
-先选择一个能可靠自动评分的小任务，跑通：
+先在一个能可靠自动评分的小任务上跑通基本循环：
 
 ```text
 当前策略 rollout -> 奖励/验证器评分 -> 优势估计
@@ -295,7 +295,7 @@ $$
 
 ### Clip-Higher
 
-令 $\varepsilon_{\text{high}}>\varepsilon_{\text{low}}$，给低概率但正优势的探索 token 更大的上升空间，同时保留较严格的下界，避免动作概率快速被压到接近 0。它不是简单地把对称 $\varepsilon$ 整体调大，而是有意区分降低概率与提高概率两个方向。
+令 $\varepsilon_{\text{high}}>\varepsilon_{\text{low}}$，给低概率但正优势的探索 token 更大的上升空间，同时保留较严格的下界，避免动作概率快速被压到接近 0。它有意区分降低概率与提高概率两个方向，而非简单地把对称 $\varepsilon$ 整体调大。
 
 ### Dynamic Sampling
 
