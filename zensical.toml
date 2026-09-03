@@ -572,7 +572,7 @@ toggle.name = "切换到自动模式"
 # Plugin
 # ==============================
 
-[project.plugins."material/meta"]
+[project.plugins.meta]
 [project.plugins.search]
 lang = "zh"
 [project.plugins.glightbox]

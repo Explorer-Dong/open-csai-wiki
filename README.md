@@ -5,7 +5,7 @@
 <p align="center">
   <a title="GitHub Stars" href="https://github.com/Explorer-Dong/open-csai-wiki/stargazers" target="_blank"><img alt="GitHub Stars" src="https://img.shields.io/github/stars/Explorer-Dong/open-csai-wiki?style=flat&label=GitHub%20Stars"></a>
   <a title="Python Version" href="https://python.org" target="_blank"><img src="https://img.shields.io/badge/Python-3.13+-aff" alt="Python Version"></a>
-  <a title="Zensical Version" href="https://github.com/zensical/zensical" target="_blank"><img src="https://img.shields.io/badge/Zensical-0.0.58+-gold" alt="Zensical Version"></a>
+  <a title="Zensical Version" href="https://github.com/zensical/zensical" target="_blank"><img src="https://img.shields.io/badge/Zensical-0.0.59+-gold" alt="Zensical Version"></a>
   <a title="Ask DeepWiki" href="https://deepwiki.com/Explorer-Dong/open-csai-wiki" target="_blank"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"></a>
   <a title="License" href="https://github.com/Explorer-Dong/open-csai-wiki/blob/main/LICENSE" target="_blank"><img src="https://img.shields.io/github/license/Explorer-Dong/open-csai-wiki.svg?style=flat&label=License" alt="License"></a>
 </p>
