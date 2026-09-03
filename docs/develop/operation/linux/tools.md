@@ -234,6 +234,9 @@ wget -O <filename> <url>
 # 指定保存路径
 wget -P </path/to/dir> <url>
 
+# 强制获取服务端最新文件
+wget --no-cache <url>
+
 # 下载指定文件中所有 url 对应的内容
 wget -i <urls.txt>
 
