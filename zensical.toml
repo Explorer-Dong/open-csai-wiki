@@ -660,3 +660,8 @@ color = "orange"
 text = "OpenBayes · 高性能算力租赁平台，包含 PRO 6000、5090、CPU 等集群，自带学术加速、永久存储空间"
 href = "https://go.dwj601.cn/r/openbayes"
 color = "#0073f8"
+
+[[project.extra.ads.items]]
+text = "Kimi · 国产前沿 AI，当前订阅 Kimi 会员，最高可得 1 年会员等值权益，100% 获奖"
+href = "https://go.dwj601.cn/r/kimi"
+color = "grey"
