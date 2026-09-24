@@ -50,4 +50,4 @@ decide(action, params, caller):
 ## 相关主题
 
 - [Tool Abuse](./tool-abuse.md)
-- [Coding Agent](../forms/code-agent/index.md)
+- [Coding Agent](../forms/coding-agent/index.md)

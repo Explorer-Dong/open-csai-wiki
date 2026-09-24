@@ -1,5 +1,6 @@
 ---
 title: OpenCode
+status: todo
 ---
 
 本文介绍 [OpenCode](https://opencode.ai/) 的具体使用方法。

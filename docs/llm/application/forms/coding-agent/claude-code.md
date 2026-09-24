@@ -1,5 +1,6 @@
 ---
 title: Claude Code
+status: todo
 ---
 
 本文介绍 [Claude Code (CLI)](https://code.claude.com/docs/en/overview) 的具体使用方法。

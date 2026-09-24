@@ -19,7 +19,7 @@ title: 模型应用
 | 上下文工程 | 上下文管理、压缩与选择 | [上下文工程](./build/paradigm/context-engineering.md)、[记忆系统](./build/agent/memory.md) |
 | RAG | Embedding、Chunking、向量检索、混合检索、Reranker 与 Graph RAG | [检索增强生成](./build/rag/index.md) |
 | Agent | ReAct、工具使用、规划、记忆、MCP、多 Agent 与 Agent Harness | [智能体](./build/agent/index.md)、[Agent Harness](./build/paradigm/harness-engineering.md) |
-| 应用形态 | Chatbot、AI Search、Copilot、Coding Agent 与 General Agent | [应用形态](./forms/index.md)、[Code Agent 产品](./forms/code-agent/index.md) |
+| 应用形态 | Chatbot、AI Search、Copilot、Coding Agent 与 General Agent | [应用形态](./forms/index.md)、[Code Agent 产品](./forms/coding-agent/index.md) |
 | 应用评测 | RAG、Agent、Coding Agent、任务成功率、延迟与成本 | [模型能力评测](../development/evaluation/index.md) |
 | 应用安全与治理 | 幻觉、越狱、提示词注入、RAG 投毒、工具滥用、权限与沙箱、隐私、公平、内容安全、伦理与合规 | [应用安全与治理](./security/index.md) |
 
@@ -37,7 +37,7 @@ title: 模型应用
 
 **约束工程 (Harness Engineering)**。一个 AI 系统不止需要丰富的输入，还需要稳定地运行，在长上下文场景下，模型很容易出现信息漂移、幻觉增加等负面效应。为此，自我约束、自我验证的 AI 系统范式 Harness Engineering 应运而生。例如：
 
-- Anthropic 推出的智能体 [Claude Code](./forms/code-agent/claude-code.md)。
+- Anthropic 推出的智能体 [Claude Code](./forms/coding-agent/claude-code.md)。
 - OpenAI 推出的智能体 [Codex](https://chatgpt.com/codex)。
 
 工程方法只是系统的一部分。上线前还需建立端到端 [模型能力评测](../development/evaluation/index.md)，并按 [应用安全与治理](./security/index.md) 实施权限、数据和审计控制。

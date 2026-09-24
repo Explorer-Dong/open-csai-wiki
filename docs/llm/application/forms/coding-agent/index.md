@@ -1,8 +1,8 @@
 ---
-title: Code Agent
+title: Coding Agent
 ---
 
-Code Agent 能阅读代码、编辑文件、运行工具并根据结果迭代完成软件任务。它把代码仓库、终端和测试工具作为可调用环境，围绕「读代码 -> 改代码 -> 跑验证 -> 看结果再改」的循环工作。这一形态的兴起与可评测性密切相关：SWE-bench（2023 年）把真实 GitHub issue 与对应补丁整理成基准，SWE-agent（2024 年）又提出 Agent-Computer Interface (ACI)，把「浏览仓库、编辑文件」设计成对模型友好的工具集，二者共同把「自动修 bug」从演示推向可量化。基准见 [SWE-bench](https://www.swebench.com/)，方法见 [SWE-agent 论文](https://arxiv.org/abs/2405.15793)。
+Coding Agent 能阅读代码、编辑文件、运行工具并根据结果迭代完成软件任务。它把代码仓库、终端和测试工具作为可调用环境，围绕「读代码 -> 改代码 -> 跑验证 -> 看结果再改」的循环工作。这一形态的兴起与可评测性密切相关：SWE-bench（2023 年）把真实 GitHub issue 与对应补丁整理成基准，SWE-agent（2024 年）又提出 Agent-Computer Interface (ACI)，把「浏览仓库、编辑文件」设计成对模型友好的工具集，二者共同把「自动修 bug」从演示推向可量化。基准见 [SWE-bench](https://www.swebench.com/)，方法见 [SWE-agent 论文](https://arxiv.org/abs/2405.15793)。
 
 ## 快速开始
 

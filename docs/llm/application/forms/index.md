@@ -50,7 +50,7 @@ General Agent 面向开放目标，可能跨浏览器、文件、通信和业务
 ![Claude 产品矩阵](https://cdn.dwj601.cn/images/20260520212419808.png)
 
 - Claude (Web)：网页应用，单纯的 Chat 功能。当然目前也逐渐更新出 Agent、多模态和文件读写等功能。
-- [Claude (CLI)](./code-agent/claude-code.md)：Code Agent，即 Claude Code，目前位于 Code Agent 第一梯队。
+- [Claude (CLI)](./coding-agent/claude-code.md)：Code Agent，即 Claude Code，目前位于 Code Agent 第一梯队。
 - Claude (App)：通用 Agent。
 
 ### OpenAI
@@ -58,7 +58,7 @@ General Agent 面向开放目标，可能跨浏览器、文件、通信和业务
 OpenAI 的产品非常丰富，在 Web、App、CLI 的基础之上，还有 LaTeX 科研平台 Prism、AI 浏览器 Atlas 等等，但是最近逐渐被 Claude 的编程能力抢了风头，所以又将资源集中到了 Coding 能力上。
 
 - ChatGPT (Web)：网页应用，单纯的 Chat 功能。
-- [Codex (CLI)](./code-agent/codex.md)：Code Agent，即 Codex，同样位于 Code Agent 第一梯队。
+- [Codex (CLI)](./coding-agent/codex.md)：Code Agent，即 Codex，同样位于 Code Agent 第一梯队。
 - Codex (App)：通用 Agent。
 
 ### Google
@@ -102,7 +102,7 @@ OpenAI 的产品非常丰富，在 Web、App、CLI 的基础之上，还有 LaTe
 
 除了 Anthropic、OpenAI、Google 三家主线厂商以外，还有一些垂直 Code Agent 产品，主要以 CLI、IDE、Cloud Sandbox 等形式存在。
 
-### [OpenCode](./code-agent/opencode.md)
+### [OpenCode](./coding-agent/opencode.md)
 
 开源 Code Agent，更适合希望自行控制模型、上下文、工具链、MCP 和权限边界的开发者。
 

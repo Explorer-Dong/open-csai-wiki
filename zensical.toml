@@ -443,11 +443,11 @@ nav = [
         "llm/application/forms/chatbot.md",
         "llm/application/forms/ai-search.md",
         "llm/application/forms/copilot.md",
-        { "Code Agent" = [
-          "llm/application/forms/code-agent/index.md",
-          "llm/application/forms/code-agent/claude-code.md",
-          "llm/application/forms/code-agent/codex.md",
-          "llm/application/forms/code-agent/opencode.md",
+        { "Coding Agent" = [
+          "llm/application/forms/coding-agent/index.md",
+          "llm/application/forms/coding-agent/codex.md",
+          "llm/application/forms/coding-agent/claude-code.md",
+          "llm/application/forms/coding-agent/opencode.md",
         ] },
         "llm/application/forms/general-agent.md",
       ] },
