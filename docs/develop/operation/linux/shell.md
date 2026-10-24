@@ -64,6 +64,44 @@ echo 'hello $name'  # hello $name
 echo "hello $name"  # hello shell
 ```
 
+### 常见环境变量
+
+可以使用 `echo $<var>` 查看。
+
+系统环境变量：
+
+| 环境变量     | 作用                 | 示例                             |
+| -------- | ------------------ | ------------------------------ |
+| `PATH`   | Shell 搜索可执行文件的目录列表 | `/usr/local/bin:/usr/bin:/bin` |
+| `HOME`   | 当前用户的主目录           | `/home/vincent`                |
+| `USER`   | 当前用户名              | `vincent`                      |
+| `SHELL`  | 用户默认的登录 Shell      | `/bin/bash`                    |
+| `PWD`    | 当前工作目录             | `/home/vincent/project`        |
+| `OLDPWD` | 上一次工作目录            | `/home/vincent`                |
+| `LANG`   | 默认语言及字符编码          | `en_US.UTF-8`                  |
+| `LC_ALL` | 覆盖其他 `LC_*` 语言环境设置 | `C.UTF-8`                      |
+| `TZ`     | 时区设置               | `Asia/Shanghai`                |
+| `TMPDIR` | 临时文件目录             | `/tmp`                         |
+| `TERM`   | 终端类型               | `xterm-256color`               |
+| `EDITOR` | 默认文本编辑器            | `vim`                          |
+| `PAGER`  | 默认分页查看工具           | `less`                         |
+
+开发环境变量：
+
+| 环境变量                   | 作用                              | 示例                             |
+| ---------------------- | ------------------------------- | ------------------------------ |
+| `PYTHONPATH`           | Python 额外的模块搜索路径                | `/home/vincent/src`            |
+| `VIRTUAL_ENV`          | 当前 Python 虚拟环境目录                | `/home/vincent/.venv`          |
+| `JAVA_HOME`            | JDK 安装目录                        | `/usr/lib/jvm/java-21-openjdk` |
+| `CUDA_VISIBLE_DEVICES` | 控制 CUDA 程序可见的 GPU               | `0,1`                          |
+| `OMP_NUM_THREADS`      | OpenMP 使用的线程数量上限                | `8`                            |
+| `HF_HOME`              | Hugging Face 本地数据目录             | `/data/huggingface`            |
+| `HF_ENDPOINT`          | Hugging Face Hub API 端点         | `https://huggingface.co`       |
+| `HTTP_PROXY`           | HTTP 代理服务器                      | `http://127.0.0.1:7890`        |
+| `HTTPS_PROXY`          | HTTPS 代理服务器                     | `http://127.0.0.1:7890`        |
+| `NO_PROXY`             | 不经过代理的地址列表                      | `localhost,127.0.0.1`          |
+| `AWS_PROFILE`          | AWS CLI 使用的配置档案                 | `default`                      |
+
 ### 导出变量 `export`
 
 使用 `export` 将 Shell 变量导出为环境变量，使其能够被当前 Shell 启动的子进程继承：
@@ -78,13 +116,19 @@ export PATH="$PATH:/custom/bin"
 
 > [!note]
 >
-> `export` 只会影响当前 Shell 及其后续启动的子进程，不会反向影响父进程，也不会自动写入配置文件。若希望每次打开终端都生效，需要将 `export` 语句写入 `~/.bashrc` 等启动配置文件中。并执行：
+> `export` 只会影响当前 Shell 及其后续启动的子进程。若希望每次打开终端都生效，需要将 `export` 语句写入 `~/.bashrc` 等启动配置文件中。你可以编辑该文件，也可以直接追加到最后：
+>
+> ```bash
+> echo 'export PATH="$PATH:/custom/bin"' >> ~/.bashrc
+> ```
+>
+> 并执行：
 >
 > ```bash
 > source ~/.bashrc
 > ```
 >
-> 上述命令的作用是在当前 Shell 中重新执行 `~/.bashrc` 文件中的所有命令。注意，该命令不会自动清理已经存在但配置文件中不再出现的变量，如果发现导出的值有误，可以重新 `export` 一遍进行覆盖，如果希望取消变量，可以使用 [`unset`](./shell.md#取消变量-unset) 命令。
+> `source <bash_file>` 的作用是在当前 Shell 中重新执行 `<bash_file>` 中的所有命令。注意，该命令不会自动清理已经存在但配置文件中不再出现的变量，如果发现导出的值有误，可以重新 `export` 一遍进行覆盖，如果希望取消变量，可以使用 [`unset`](./shell.md#取消变量-unset) 命令。
 
 ### 取消变量 `unset`
 

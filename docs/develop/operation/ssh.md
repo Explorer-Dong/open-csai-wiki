@@ -74,13 +74,15 @@ ssh 有客户端和服务端两处配置：
 
 ### ssh config
 
-连接时显式指定 ip、端口、私钥地址等信息是很麻烦的，需要记住很多东西，为了简化连接，我们可以把这些信息写到一处并取一个别名来表示。例如：
+连接时显式指定 IP、端口、私钥地址等信息是很麻烦的，需要记住很多东西，为了简化连接，我们可以把这些信息写到一处并取一个别名来表示。例如：
 
 ```bash
 Host MyServer                          # 远程名称（自定义）
     HostName xxx.xxx.xxx.xxx           # 远程服务器的域名或 IP
-    Port 7890                          # 连接端口（默认 22）
+    Port 7788                          # 连接端口（默认 22，修改方法见下方 sshd config）
     User root                          # 登录用户名
+    ServerAliveInterval 30             # 每 30 秒向服务器发送一次 SSH 保活请求（默认 0）
+    ServerAliveCountMax 6              # 连续 6 次未收到响应才主动断开（默认 3）
     IdentityFile ~/.ssh/<private_key>  # 本地私钥路径
 ```
 
@@ -95,7 +97,7 @@ Host MyServer                          # 远程名称（自定义）
 PasswordAuthentication no
 
 # 指定 SSH 端口（默认 22）
-Port 1223
+Port 7788
 ```
 
 修改配置后需要重启服务端的 ssh 守护进程：
