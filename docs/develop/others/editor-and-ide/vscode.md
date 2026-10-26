@@ -28,15 +28,43 @@ VSCode 支持不同的配置级别：
 
 如果登陆了 VSCode，配置好后 VSCode 会自动将配置内容同步到云，后续切换环境时只需要登陆 VSCode 就可以自动同步所有配置。
 
-## 离线安装插件
+## VSCode 插件
 
-首先需要获取 VSIX 插件安装包，然后在本地执行安装：
+VSCode 最强悍的地方之一就在于插件系统。通过插件系统，VSCode 能完成很多意想不到的任务。
+
+### 安装插件
+
+如果网络条件允许，可以直接在线安装。
+
+也支持离线安装：
+
+1）获取 VSIX 格式的插件安装包：推荐通过 [官网](https://marketplace.visualstudio.com/vscode) 获取；也可以在插件列表选中并右键插件，选择下载 VSIX。
+
+2）在本地执行安装：
 
 ```bash
 code --install-extension </path/to/xxx.vsix>
 ```
 
-插件安装包推荐通过 [官网](https://marketplace.visualstudio.com/vscode) 获取；也可以在插件列表选中并右键插件，选择下载 VSIX 即可获取。
+### Remote SSH
+
+Remote SSH 插件允许 VSCode 通过 SSH 协议操作远程服务器，同时提供了 VSCode 的全部功能。
+
+其原理时在远程服务器上安装并启动 VSCode Server 程序。对于小内存服务器，可以在结束连接时主动关闭 Server 端进程，减少内存占用。Ctrl + Shift + P 调起控制面板，然后输入 `Remote-SSH: Kill VS Code Server on Host...`，之后选择对应的 SSH 主机即可：
+
+![Kill VSCode Server 命令](https://cdn.dwj601.cn/images/2026-1026-230021-1c24f7ed.png)
+
+### LaTeX
+
+以 Ubuntu 为例。首先安装 Tex 编译器：
+
+```bash
+sudo apt install texlive-full -y
+```
+
+然后安装 VSCode 的 LaTeX 插件：[LaTeX Workshop](https://github.com/James-Yu/LaTeX-Workshop.git)。
+
+之后就可以按照 LaTeX 工程，在本地编写 tex 并编译预览了。
 
 ## 代码跳转
 
@@ -47,15 +75,3 @@ code --install-extension </path/to/xxx.vsix>
 - 进入 (enter)：Ctrl + 鼠标左键。
 - 光标后退 (navigate back)：Alt + $\leftarrow$ 或鼠标侧边后退键。
 - 光标前进 (navigate forward)：Alt + $\rightarrow$ 或鼠标侧边前进键。
-
-## VSCode + LaTeX
-
-以 Ubuntu 为例。首先安装 Tex 编译器：
-
-```bash
-sudo apt install texlive-full -y
-```
-
-然后安装 VSCode 的 LaTeX 插件：[LaTeX Workshop](https://github.com/James-Yu/LaTeX-Workshop.git)。
-
-之后就可以按照 LaTeX 工程，编写 tex 然后编译预览了。
