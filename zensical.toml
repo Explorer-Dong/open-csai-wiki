@@ -1,6 +1,7 @@
 [project]
-site_name = "斟知"
+site_name = "开放 CS/AI 知识库"
 site_url = "https://wiki.dwj601.cn/"
+site_description = "A collection of structured notes covering Fundamentals, Data Structures and Algorithms, Software Development, LLMs and more."
 repo_url = "https://github.com/Explorer-Dong/open-csai-wiki"
 repo_name = "Open CS/AI Wiki"
 edit_uri = "edit/main/docs/"
@@ -529,12 +530,13 @@ features = [
   "navigation.instant.progress",
   "navigation.instant.prefetch",
   "navigation.instant.preview",
-  "navigation.tracking",
+  # "navigation.tracking",
   "navigation.footer",
   "content.code.copy",
   "content.tooltips",
   "content.action.edit",
   "content.action.view",
+  "content.action.copy",
   "content.tabs.link",
   "search.highlight",
   "search.share",
@@ -577,6 +579,21 @@ toggle.name = "切换到自动模式"
 lang = "zh"
 [project.plugins.glightbox]
 auto_caption = true
+[project.plugins.llmstxt]
+autoclean = false
+sections = { "首页" = [
+  "index.md",
+], "基础知识" = [
+  "base/*.md",
+], "数据结构与算法" = [
+  "ds-and-algo/*.md",
+], "软件开发" = [
+  "develop/*.md",
+], "大模型" = [
+  "llm/*.md",
+], "参与贡献" = [
+  "contributing.md"
+] }
 
 # ==============================
 # Markdown Extension
