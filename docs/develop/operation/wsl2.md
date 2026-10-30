@@ -72,40 +72,26 @@ wsl --update
 
 ### 配置 WSL
 
-有以下两种方法来对 WSL 进行全局配置：
+有以下两种途径配置 WSL：
 
-- 创建 `C:\Users\<用户名>\.wslconfig` 文本文件来配置 WSL；
-- 运行 `WSL Settings` GUI 程序可视化配置 WSL（也会自动创建上述文件）。
+1. 创建 `C:\Users\<用户名>\.wslconfig` 文本文件来配置 WSL。
+2. 运行 `WSL Settings` GUI 程序可视化配置 WSL（也会自动创建上述文件）。
 
 示例配置：
 
 ```ini
 [wsl2]
+# 内存大小（所有发行版共享）
 memory=8GB
+# 交换空间大小（所有发行版共享）
 swap=16GB
+# 逻辑核心数（所有发行版共享）
 processors=12
+# 默认硬盘空间（后续调整需要针对具体的发行版单独配置）
 defaultVhdSize=32GB
 ```
 
 配置前需要关闭所有实例，重启后生效。
-
-> [!tip] 关于硬盘大小
->
-> 安装在 WSL 中的所有 Linux 实例共享除了硬盘大小以外的所有配置。硬盘大小可以后续单独扩容，例如，从 32 GB 扩容到 64 GB：
->
-> ```bash
-> # 关闭 wsl
-> wsl --shutdown
-> 
-> # 扩容 wsl
-> wsl --manage <distri_name> --resize 64GB
-> 
-> # 重启发行版
-> wsl -d <distri_name>
-> 
-> # 查看硬盘大小是否变化
-> df -h
-> ```
 
 ### 卸载 WSL
 
@@ -193,10 +179,10 @@ wsl --shutdown
 
     ```bash
     # 导出发行版
-    wsl --export <distri_name> <path/to/source.tar>
+    wsl --export <distri_name> <path\to\source.tar>
 
     # 导入发行版
-    wsl --import <distri_name> <path/to/target> <path/to/source.tar>
+    wsl --import <distri_name> <path\to\target> <path\to\source.tar>
     ```
 
 ### 配置发行版
@@ -228,6 +214,44 @@ appendWindowsPath = true
 # 设置默认用户
 # default = <用户名>
 ```
+
+调整虚拟硬盘大小。我们首先要知道发行版使用虚拟硬盘的逻辑：对于每一个发行版，都有一个初始的逻辑空间上限（已经在 Windows 的 [`.wslconfig`](#配置-wsl) 配置过了 `defaultVhdSize` 参数），例如 64G、512G 等，但对应的 VHDX 文件并不会一开始就占这么大的物理空间，而是在使用的过程中逐渐逼近这个逻辑空间上限，直到达到这个上限就会报错表示硬盘空间不够。
+
+需要注意的是，物理空间并不会因为我们在发行版中删除文件而释放，所以针对逻辑空间上限和物理空间占用，我们可以手动配置的就是以下三个内容：
+
+1. 提升发行版的逻辑空间上限。这一步很简单，WSL 在 2.5+ 版本提供了一键配置命令：
+
+    ```bash
+    wsl --manage <Ubuntu-24.04> --resize <128GB>
+    ```
+
+2. 回收发行版的物理空间到 Windows。这一步也很方便，可以直接使用 Windows 的 diskpart 工具回收发行版中的空闲空间：
+
+    ```bash
+    # 管理员身份打开 PowerShell，然后：
+    diskpart
+    select vdisk file="D:\path\to\ext4.vhdx"
+    compact vdisk
+    exit
+    ```
+
+    之后应当能在 Windows 看到对应的 VHDX 文件的占用大幅减少了。可以在执行 `compact` 命令前后分别执行以下命令观察实际参数：
+
+    ```bash
+    detail vdisk
+    ```
+
+3. 降低发行版的逻辑空间上限。直接调整非常复杂，微软官方建议先导出再导入的方式进行：
+
+    ```bash
+    # 导出
+    wsl --export Ubuntu-24.04 <D:\WSL\ubuntu-backup.tar>
+
+    # 调整 .wslconfig 中的 defaultVhdSize 参数为你预期的大小
+
+    # 导入
+    wsl --import <Ubuntu-24.04-new> <D:\Ubuntu-24.04-new> <D:\ubuntu-backup.tar>
+    ```
 
 配置时区：
 
