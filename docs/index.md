@@ -3,7 +3,7 @@ title: 首页
 ---
 
 <p align="center" style="font-size: 1.5em; font-weight: bold;">
-    斟知 &middot 一个围绕计算机与人工智能的知识库
+    一个围绕计算机与人工智能的知识库
 </p>
 
 ![](./assets/images/wiki-cover-image.jpg)

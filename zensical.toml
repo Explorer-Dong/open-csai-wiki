@@ -580,7 +580,7 @@ lang = "zh"
 [project.plugins.glightbox]
 auto_caption = true
 [project.plugins.llmstxt]
-autoclean = false
+autoclean = true
 sections = { "首页" = [
   "index.md",
 ], "基础知识" = [
