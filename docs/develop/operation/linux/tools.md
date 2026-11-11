@@ -138,49 +138,71 @@ tree --dirsfirst
 
 ## 多路复用器 tmux
 
-[tmux](https://github.com/tmux/tmux) 是一个终端多路复用工具，支持一个终端多路复用。不同的路以会话 (session) 的形式存在，特别适合后台运行长时间任务。
+[tmux](https://github.com/tmux/tmux) 是一个终端多路复用工具，支持一个终端多路复用，特别适合后台运行长时间任务。
 
 软件安装：
 
 ```bash
-apt update
-apt install tmux
+sudo apt update && sudo apt install tmux -y
 ```
+
+tmux 有三级管理逻辑，从高到低分别为 session、window、panel。一般情况下，一个项目对应一个 session，项目中的多个任务使用多个 window 管理。可以将其类比 [文件系统](../../../base/cs/operating-system/persistence.md#文件系统)，内容相互独立，但生命周期逐层依赖。
 
 终端命令：
 
 ```bash
-# 新建并进入会话
+# 新建并进入 session
 tmux new -s <session_name>
 
-# 进入会话
+# 进入 session
 tmux attach -t <session_name>
 
-# 列出所有会话
+# 列出所有 session
 tmux ls
 
-# 删除会话
+# 删除 session
 tmux kill-session -t <session_name>
 
-# 重命名会话
+# 重命名 session
 tmux rename-session -t <old_session_name> <new_session_name>
 ```
 
-会话中快捷键：
+session 中管理 session：
 
 ```bash
-# 退出会话
-Ctrl+b d
+# 退出但保留 session
+Ctrl+b -> d
 
-# 罗列所有会话
-Ctrl+b s
-# ↑ ↓ 选择会话
-# Enter 进入会话
-# x + y 删除会话
+# 退出并删除 session
+Ctrl+d
+
+# 罗列所有 session
+Ctrl+b -> s
+# ↑ ↓ 选择 session
+# Enter 进入 session
+# x + y 删除 session
 # Esc 退出界面
 
-# 重命名会话
-Ctrl+b $
+# 重命名 session
+Ctrl+b -> $
+```
+
+session 中管理 window：
+
+```bash
+# 创建新 window
+Ctrl+b -> c
+
+# 跳转到下一个 window
+Ctrl+b -> n
+
+# 重命名当前 window
+Ctrl+b -> ,
+
+# 删除并退出当前 window
+Ctrl+b -> &
+# 或者
+Ctrl+d
 ```
 
 软件配置：
@@ -201,12 +223,12 @@ Ctrl+b $
     tmux source-file ~/.tmux.conf
     ```
 
-=== "方法二：会话中临时设置"
+=== "方法二：session 中临时设置"
 
     ```bash
     # 以启用滚轮为例
-    # 1. 进入 tmux 会话
-    # 2. 输入 `Ctrl + b + :`
+    # 1. 进入 session
+    # 2. 输入 `Ctrl+b -> :`
     # 3. 输入 `set -g mouse on`
     # 4. 回车后即可使用滚轮
     ```
